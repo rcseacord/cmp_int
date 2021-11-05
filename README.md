@@ -29,14 +29,15 @@ It is a compile-time error if either `lhs` or `rhs` is not a signed or unsigned 
 `rhs` - right-hand argument
 
 ## Return value
-1 `true` if `lhs` is equal to `rhs`.
 
-2 `true` if `lhs` is not equal to `rhs`.
+`cmp_equal` returns `true` if `lhs` is equal to `rhs`.
 
-3 `true` if `lhs` is less than `rhs`.
+`cmp_not_equal` returns `true` if `lhs` is not equal to `rhs`.
 
-4 `true` if `lhs` is greater than `rhs`.
+`cmp_less` returns `true` if `lhs` is less than `rhs`.
 
-5 `true` if `lhs` is less or equal to `rhs`.
+`cmp_greater` returns `true` if `lhs` is greater than `rhs`.
 
-6 `true` if `lhs` is greater or equal to `rhs`.
+`cmp_less_equal` returns `true` if `lhs` is less or equal to `rhs`.
+
+`cmp_greater_equal` returns `true` if `lhs` is greater or equal to `rhs`.
