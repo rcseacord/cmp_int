@@ -1,5 +1,5 @@
-#include <limits.h>
-#include <stdio.h>
+#ifndef UTILITY_H
+#define UTILITY_H
 
 #define is_integer(x) (_Generic((x), \
                          default: 0, \
@@ -63,3 +63,5 @@
 #define cmp_greater(lhs, rhs) cmp_less(rhs, lhs)
 #define cmp_less_equal(lhs, rhs) !cmp_greater(lhs, rhs)
 #define cmp_greater_equal(lhs, rhs) !cmp_less(lhs, rhs)
+
+#endif /* UTILITY_H */
