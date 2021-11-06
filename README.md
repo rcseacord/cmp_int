@@ -1,4 +1,4 @@
-# cmp_int
+# Integer Comparison Macros
 C implementation of C++ Utility functions https://en.cppreference.com/w/cpp/utility/intcmp
 
 ## `cmp_equal`, `cmp_not_equal`, `cmp_less`, `cmp_greater`, `cmp_less_equal`, `cmp_greater_equal`
