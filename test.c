@@ -29,10 +29,10 @@
 #include "cmp_int.h"
 
 int main(void) {
-    printf("%s", "comp_equal(-1, INT_MAX) returns ");
+    printf("%s", "cmp_equal(-1, INT_MAX) returns ");
     cmp_equal(-1, INT_MAX) ? puts("true") : puts("false");
 
-    printf("%s", "comp_equal(0, 0) returns ");
+    printf("%s", "cmp_equal(0, 0) returns ");
     cmp_equal(0, 0) ? puts("true") : puts("false");
 
     printf("%s", "cmp_not_equal(-1, INT_MAX) returns ");
