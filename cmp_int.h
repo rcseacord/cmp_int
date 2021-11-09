@@ -24,8 +24,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef UTILITY_H
-#define UTILITY_H
+#ifndef CMP_INT_H
+#define CMP_INT_H
 
 #define is_integer(x) (_Generic((x), \
                          default: 0, \
@@ -90,4 +90,4 @@
 #define cmp_less_equal(lhs, rhs) !cmp_greater(lhs, rhs)
 #define cmp_greater_equal(lhs, rhs) !cmp_less(lhs, rhs)
 
-#endif /* UTILITY_H */
+#endif /* CMP_INT_H */
