@@ -60,7 +60,7 @@
   _Static_assert(is_integer(lhs), "lhs must be an integer"); \
   _Static_assert(is_integer(rhs), "rhs must be an integer");
 
-#define comp_equal(lhs, rhs) ({                      \
+#define cmp_equal(lhs, rhs) ({                      \
   check_types(lhs, rhs);                             \
   int res = 0;                                       \
   if (is_signed(lhs) == is_signed(rhs))              \
@@ -72,7 +72,7 @@
   res;                                               \
 })
 
-#define cmp_not_equal(lhs, rhs) !comp_equal(lhs, rhs)
+#define cmp_not_equal(lhs, rhs) !cmp_equal(lhs, rhs)
  
 #define cmp_less(lhs, rhs) ({                        \
   check_types(lhs, rhs);                             \
