@@ -3,7 +3,7 @@ C implementation of C++ Utility functions https://en.cppreference.com/w/cpp/util
 
 ## `cmp_equal`, `cmp_not_equal`, `cmp_less`, `cmp_greater`, `cmp_less_equal`, `cmp_greater_equal`
 
-In the synopses in this subclause, integer indicates that the argument shall be an expression of real integer type.
+In the synopses in this subclause, integer indicates that the argument shall be an expression of real integer type:
 
 ```c
 bool cmp_equal(integer lhs, integer rhs);
@@ -21,11 +21,12 @@ Compare the values of two integers `lhs` and `rhs`. Unlike builtin comparison op
 std::cmp_greater(-1, 0u); // false
 ```
  
-It is a compile-time error if either `lhs` or `rhs` is not a signed or unsigned integer type (including standard integer type and extended integer type):
+It is a compile-time error if either `lhs` or `rhs` is not a signed or unsigned integer type (including standard integer type and extended integer type). It is also a compile-time error if the either `lhs` or `rhs` is the `char` and `bool` type.  While technically integer types, the `char` type should only be used to represent character values where the signedness is unimportant and the 'bool' type is always unsigned.   
 
 ```c
-cmp_greater_equal(1.0, -1.0) ? puts("true") : puts("false"); // doesn't compile
-cmp_greater((char)-1, (char)1) ? puts("true") : puts("false"); // doesn't compile
+cmp_greater_equal(1.0, -1.0) ? puts("true") : puts("false"); // type double, doesn't compile
+cmp_greater((char)-1, (char)1) ? puts("true") : puts("false"); // type char, doesn't compile
+cmp_greater((_Bool)0, (_Bool)1) ? puts("true") : puts("false"); // type _Bool, doesn't compile
 ```
 
 ## Parameters
