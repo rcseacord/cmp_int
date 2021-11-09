@@ -63,32 +63,32 @@
   _Static_assert(is_supported_type(rhs), "rhs is not a supported type must be an integer other than bool or char")
 
 #define cmp_equal(lhs, rhs) \
-  ((void)sizeof(struct { check_lhs(lhs); int dummy; check_rhs(rhs); } ), \
+  (_Bool)((void)sizeof(struct { check_lhs(lhs); int dummy; check_rhs(rhs); } ), \
     (is_signed(lhs) == is_signed(rhs) ? (lhs) == (rhs) : \
     is_signed(lhs) ? \
       (lhs) >= 0 && make_unsigned(lhs) == (rhs) : \
       ((rhs) >= 0 && (lhs) == make_unsigned(rhs))))
 
-#define cmp_not_equal(lhs, rhs) !cmp_equal(lhs, rhs)
+#define cmp_not_equal(lhs, rhs) (_Bool)!cmp_equal(lhs, rhs)
  
 #define cmp_less(lhs, rhs) \
-  ((void)sizeof(struct { check_lhs(lhs); int dummy; check_rhs(rhs); } ), \
+  (_Bool)((void)sizeof(struct { check_lhs(lhs); int dummy; check_rhs(rhs); } ), \
   (is_signed(lhs) == is_signed(rhs) ? (lhs) < (rhs) : \
     is_signed(lhs) ? \
       (lhs) < 0 || make_unsigned(lhs) < (rhs) : \
       ((rhs) >= 0 && (lhs) < make_unsigned(rhs))))
 
-#define cmp_not_equal(lhs, rhs) !cmp_equal(lhs, rhs)
+#define cmp_not_equal(lhs, rhs) (_Bool)!cmp_equal(lhs, rhs)
  
 #define cmp_less(lhs, rhs) \
-  ((void)sizeof(struct { check_types((lhs), (rhs)); int dummy; }), \
+  (_Bool)((void)sizeof(struct { check_types((lhs), (rhs)); int dummy; }), \
   (is_signed(lhs) == is_signed(rhs) ? (lhs) < (rhs) : \
     is_signed(lhs) ? \
       (lhs) < 0 || make_unsigned(lhs) < (rhs) : \
       ((rhs) >= 0 && (lhs) < make_unsigned(rhs))))
 
-#define cmp_greater(lhs, rhs) cmp_less(rhs, lhs)
-#define cmp_less_equal(lhs, rhs) !cmp_greater(lhs, rhs)
-#define cmp_greater_equal(lhs, rhs) !cmp_less(lhs, rhs)
+#define cmp_greater(lhs, rhs) (_Bool)cmp_less(rhs, lhs)
+#define cmp_less_equal(lhs, rhs) (_Bool)!cmp_greater(lhs, rhs)
+#define cmp_greater_equal(lhs, rhs) (_Bool)!cmp_less(lhs, rhs)
 
 #endif /* CMP_INT_H */
