@@ -64,7 +64,7 @@
   ((void)sizeof(struct { check_types(lhs, rhs); int dummy; }), \
    (is_signed(lhs) == is_signed(rhs) ? (lhs) == (rhs) : \
     is_signed(lhs) ? \
-      (lhs) < 0 || make_unsigned(lhs) == (rhs) : \
+      (lhs) >= 0 && make_unsigned(lhs) == (rhs) : \
       ((rhs) >= 0 && (lhs) == make_unsigned(rhs))))
 
 #define cmp_not_equal(lhs, rhs) !cmp_equal(lhs, rhs)
