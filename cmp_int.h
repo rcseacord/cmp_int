@@ -27,7 +27,7 @@
 #ifndef CMP_INT_H
 #define CMP_INT_H
 
-#define is_integer(x) (_Generic((x), \
+#define is_supported_type(x) (_Generic((x), \
                          default: 0, \
                          signed char: 1, \
                          signed short: 1, \
@@ -56,16 +56,27 @@
                          signed long: ((unsigned long)x), \
                          signed long long: (unsigned long long)x))
 
-#define check_types(lhs, rhs) \
-  _Static_assert(is_integer(lhs), "lhs must be an integer"); \
-  _Static_assert(is_integer(rhs), "rhs must be an integer");
+#define check_lhs(lhs) \
+  _Static_assert(is_supported_type(lhs), "lhs is not a supported type: must be an integer other than bool or char") 
+
+#define check_rhs(rhs) \
+  _Static_assert(is_supported_type(rhs), "rhs is not a supported type must be an integer other than bool or char")
 
 #define cmp_equal(lhs, rhs) \
-  ((void)sizeof(struct { check_types(lhs, rhs); int dummy; }), \
-   (is_signed(lhs) == is_signed(rhs) ? (lhs) == (rhs) : \
+  ((void)sizeof(struct { check_lhs(lhs); int dummy; check_rhs(rhs); } ), \
+    (is_signed(lhs) == is_signed(rhs) ? (lhs) == (rhs) : \
     is_signed(lhs) ? \
       (lhs) >= 0 && make_unsigned(lhs) == (rhs) : \
       ((rhs) >= 0 && (lhs) == make_unsigned(rhs))))
+
+#define cmp_not_equal(lhs, rhs) !cmp_equal(lhs, rhs)
+ 
+#define cmp_less(lhs, rhs) \
+  ((void)sizeof(struct { check_lhs(lhs); int dummy; check_rhs(rhs); } ), \
+  (is_signed(lhs) == is_signed(rhs) ? (lhs) < (rhs) : \
+    is_signed(lhs) ? \
+      (lhs) < 0 || make_unsigned(lhs) < (rhs) : \
+      ((rhs) >= 0 && (lhs) < make_unsigned(rhs))))
 
 #define cmp_not_equal(lhs, rhs) !cmp_equal(lhs, rhs)
  
