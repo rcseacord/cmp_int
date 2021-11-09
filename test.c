@@ -26,7 +26,7 @@
 
 #include <limits.h>
 #include <stdio.h>
-#include "utility.h"
+#include "cmp_int.h"
 
 int main(void) {
     printf("%s", "comp_equal(-1, INT_MAX) returns ");
