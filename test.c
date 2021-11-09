@@ -34,12 +34,24 @@ int main(void) {
 
     printf("%s", "cmp_equal(0, 0) returns ");
     cmp_equal(0, 0) ? puts("true") : puts("false");
+    
+    printf("%s", "cmp_equal(-5, (unsigned)5) returns ");
+    puts(cmp_equal(-5, (unsigned)5) ? "true" : "false");
+    
+    printf("%s", "cmp_equal(1 || 1, 0) returns ");
+    puts(cmp_equal(1 || 1, 0) ? "true" : "false");
+    
+    printf("%s", "cmp_equal(1 ^ 1, 0) returns ");
+    puts(cmp_equal(1 ^ 1, 0) ? "true" : "false");
 
     printf("%s", "cmp_not_equal(-1, INT_MAX) returns ");
     cmp_not_equal(-1, INT_MAX) ? puts("true") : puts("false");
 
     printf("%s", "cmp_not_equal(0, 0) returns ");
     cmp_not_equal(0, 0) ? puts("true") : puts("false");
+    
+    printf("%s", "cmp_not_equal(-5, (unsigned)5) returns ");
+    puts(cmp_not_equal(-5, (unsigned)5) ? "true" : "false");
 
     printf("%s", "cmp_less(0, 0) returns ");
     cmp_less(0, 0) ? puts("true") : puts("false");
@@ -49,6 +61,12 @@ int main(void) {
 
     printf("%s", "cmp_less(1, -1) returns ");
     cmp_less(1, -1) ? puts("true") : puts("false");
+    
+    printf("%s", "cmp_less(1 || 1, 0) returns ");
+    puts(cmp_less(1 || 1, 0) ? "true" : "false");
+    
+    printf("%s", "cmp_less(1 || 1, 0) returns ");
+    puts(cmp_less(1 || 1, 0) ? "true" : "false");
 
     printf("%s", "cmp_greater(0, 0) returns ");
     cmp_greater(0, 0) ? puts("true") : puts("false");
