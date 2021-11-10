@@ -1,11 +1,6 @@
 # Integer Comparison Macros
 C implementation of C++ Utility functions https://en.cppreference.com/w/cpp/utility/intcmp
 
-## Portability
-Define the `CMP_INT_WANT_PORTABLE` macro to `1` to get the most portable implementation of these facilities. This portability comes at a cost though: compiler extensions are what protect against unintended duplicate side effects in the macro expansion. For this reason, the macro defaults to requesting the nonportable interfaces.
-
-These interfaces require compiling with support for C11 functionality, even when requesting maximal portability.
-
 ## `cmp_equal`, `cmp_not_equal`, `cmp_less`, `cmp_greater`, `cmp_less_equal`, `cmp_greater_equal`
 
 In the synopses in this subclause, integer indicates that the argument shall be an expression of real integer type:
@@ -52,3 +47,8 @@ cmp_greater((_Bool)0, (_Bool)1) ? puts("true") : puts("false"); // type _Bool, d
 `cmp_less_equal` returns `true` if `lhs` is less or equal to `rhs`.
 
 `cmp_greater_equal` returns `true` if `lhs` is greater or equal to `rhs`.
+
+## Portability, Safety, & Security
+Define the `CMP_INT_WANT_PORTABLE` macro to `1` for the most portable implementation of these facilities. This macro will disable the use of GNU statement expressions and other extensions that protect against unintended duplicate side effects during macro expansion. For this reason, the macro defaults to requesting the nonportable interfaces that are more hygenic.
+
+These interfaces require compiling with support for C11 functionality, even when requesting maximal portability.
