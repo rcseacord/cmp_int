@@ -27,6 +27,15 @@
 #ifndef CMP_INT_H
 #define CMP_INT_H
 
+// Define the CMP_INT_WANT_PORTABLE macro to 1 to get the most portable
+// implementation of these facilities. This portability comes at a cost though:
+// compiler extensions are what protect against unintended duplicate side
+// effects in the macro expansion. For this reason, the macro defaults to
+// requesting the nonportable interfaces.
+#ifndef CMP_INT_WANT_PORTABLE
+#define CMP_INT_WANT_PORTABLE 0
+#endif // CMP_INT_WANT_PORTABLE
+
 #define is_supported_type(x) (_Generic((x), \
                          default: 0, \
                          signed char: 1, \
@@ -56,39 +65,62 @@
                          signed long: ((unsigned long)x), \
                          signed long long: (unsigned long long)x))
 
-#define check_lhs(lhs) \
-  _Static_assert(is_supported_type(lhs), "lhs is not a supported type: must be an integer other than bool or char") 
+#define check(val, which)                                                      \
+  _Static_assert(                                                              \
+      is_supported_type(val), which                                            \
+      " is not a supported type: must be an integer other than bool or char")
 
-#define check_rhs(rhs) \
-  _Static_assert(is_supported_type(rhs), "rhs is not a supported type must be an integer other than bool or char")
-
+#if CMP_INT_WANT_PORTABLE
 #define cmp_equal(lhs, rhs) \
-  (_Bool)((void)sizeof(struct { check_lhs(lhs); int dummy; check_rhs(rhs); } ), \
+  ((_Bool)((void)sizeof(struct { check(lhs, "lhs"); int d; check(rhs, "rhs"); }),\
     (is_signed(lhs) == is_signed(rhs) ? (lhs) == (rhs) : \
     is_signed(lhs) ? \
       (lhs) >= 0 && make_unsigned(lhs) == (rhs) : \
-      ((rhs) >= 0 && (lhs) == make_unsigned(rhs))))
+      ((rhs) >= 0 && (lhs) == make_unsigned(rhs)))))
 
-#define cmp_not_equal(lhs, rhs) (_Bool)!cmp_equal(lhs, rhs)
- 
 #define cmp_less(lhs, rhs) \
-  (_Bool)((void)sizeof(struct { check_lhs(lhs); int dummy; check_rhs(rhs); } ), \
+  ((_Bool)((void)sizeof(struct { check(lhs, "lhs"); int d; check(rhs, "rhs"); }),\
   (is_signed(lhs) == is_signed(rhs) ? (lhs) < (rhs) : \
     is_signed(lhs) ? \
       (lhs) < 0 || make_unsigned(lhs) < (rhs) : \
-      ((rhs) >= 0 && (lhs) < make_unsigned(rhs))))
+      ((rhs) >= 0 && (lhs) < make_unsigned(rhs)))))
+#else
+#define cmp_equal(lhs, rhs)                                                    \
+  ({                                                                           \
+    __typeof__(lhs) lhs_val = lhs;                                             \
+    __typeof__(rhs) rhs_val = rhs;                                             \
+    check(lhs_val, "lhs");                                                     \
+    check(rhs_val, "rhs");                                                     \
+    int res = 0;                                                               \
+    if (is_signed(lhs_val) == is_signed(rhs_val))                              \
+      res = (lhs_val) == (rhs_val);                                            \
+    else if (is_signed(lhs_val))                                               \
+      res = (lhs_val) < 0 ? 0 : make_unsigned(lhs_val) == (rhs_val);           \
+    else                                                                       \
+      res = (rhs_val) < 0 ? 0 : (lhs_val) == make_unsigned(rhs_val);           \
+    res;                                                                       \
+  })
 
-#define cmp_not_equal(lhs, rhs) (_Bool)!cmp_equal(lhs, rhs)
- 
-#define cmp_less(lhs, rhs) \
-  (_Bool)((void)sizeof(struct { check_types((lhs), (rhs)); int dummy; }), \
-  (is_signed(lhs) == is_signed(rhs) ? (lhs) < (rhs) : \
-    is_signed(lhs) ? \
-      (lhs) < 0 || make_unsigned(lhs) < (rhs) : \
-      ((rhs) >= 0 && (lhs) < make_unsigned(rhs))))
+#define cmp_less(lhs, rhs)                                                     \
+  ({                                                                           \
+    __typeof__(lhs) lhs_val = lhs;                                             \
+    __typeof__(rhs) rhs_val = rhs;                                             \
+    check(lhs_val, "lhs");                                                     \
+    check(rhs_val, "rhs");                                                     \
+    int res = 0;                                                               \
+    if (is_signed(lhs_val) == is_signed(rhs_val))                              \
+      res = (lhs_val) < (rhs_val);                                             \
+    else if (is_signed(lhs_val))                                               \
+      res = (lhs_val) < 0 ? 1 : make_unsigned(lhs_val) < (rhs_val);            \
+    else                                                                       \
+      res = (rhs_val) < 0 ? 0 : (lhs_val) < make_unsigned(rhs_val);            \
+    res;                                                                       \
+  })
+#endif // CMP_INT_WANT_PORTABLE
 
-#define cmp_greater(lhs, rhs) (_Bool)cmp_less(rhs, lhs)
-#define cmp_less_equal(lhs, rhs) (_Bool)!cmp_greater(lhs, rhs)
-#define cmp_greater_equal(lhs, rhs) (_Bool)!cmp_less(lhs, rhs)
+#define cmp_not_equal(lhs, rhs) ((_Bool)!cmp_equal(lhs, rhs))
+#define cmp_greater(lhs, rhs) ((_Bool)cmp_less(rhs, lhs))
+#define cmp_less_equal(lhs, rhs) ((_Bool)!cmp_greater(lhs, rhs))
+#define cmp_greater_equal(lhs, rhs) ((_Bool)!cmp_less(lhs, rhs))
 
 #endif /* CMP_INT_H */

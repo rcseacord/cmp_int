@@ -65,8 +65,8 @@ int main(void) {
     printf("%s", "cmp_less(1 || 1, 0) returns ");
     puts(cmp_less(1 || 1, 0) ? "true" : "false");
     
-    printf("%s", "cmp_less(1 || 1, 0) returns ");
-    puts(cmp_less(1 || 1, 0) ? "true" : "false");
+    printf("%s", "cmp_less(1 && 1, 0) returns ");
+    puts(cmp_less(1 && 1, 0) ? "true" : "false");
 
     printf("%s", "cmp_greater(0, 0) returns ");
     cmp_greater(0, 0) ? puts("true") : puts("false");
@@ -93,5 +93,21 @@ int main(void) {
     cmp_greater_equal(-1, 1) ? puts("true") : puts("false");
 
     printf("%s", "cmp_greater_equal(1, -1) returns ");
-    cmp_greater_equal(1, -1) ? puts("true") : puts("false");      
+    cmp_greater_equal(1, -1) ? puts("true") : puts("false");
+
+    // NOTE: this test case behaves differently depending on whether the
+    // CMP_INT_WANT_PORTABLE macro is defined to 1 or not. If not defined or
+    // defined to 0, this test will output:
+    //   with i == 0, cmp_less_equal(i++, 0U) returns true and i is 1
+    // but with CMP_INT_WANT_PORTABLE defined to 1, this test will output:
+    //   with i == 0, cmp_less_equal(i++, 0U) returns false and i is 2
+    int i = 0;
+    printf("%s", "with i == 0, cmp_less_equal(i++, 0U) returns ");
+    cmp_less_equal(i++, 0U) ? printf("true") : printf("false");
+    printf(" and i is %d\n", i);
+
+    if (cmp_equal(0, 0U))
+        puts("use within an if condition behaves as expected");
+    else if (cmp_less(0, 0U))
+        puts("something has gone very, very wrong");
 }
