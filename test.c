@@ -28,7 +28,45 @@
 #include <stdio.h>
 #include "cmp_int.h"
 
+#define print_type(x) (_Generic((x), \
+                         default: puts("default"), \
+                         signed char: puts("signed char"), \
+                         signed short: puts("signed short"), \
+                         signed int: puts("signed int"), \
+                         signed long: puts("signed long"), \
+                         signed long long: puts("signed long long"), \
+                         unsigned char: puts("unsigned char"), \
+                         unsigned short: puts("unsigned short"), \
+                         unsigned int: puts("unsigned int"), \
+                         unsigned long: puts("unsigned long"), \
+                         unsigned long long: puts("unsigned long long"))) 
+
 int main(void) {
+    enum day { sun, mon, tue, wed, thu, fri, sat }; 
+    enum cardinal_points { north = 0, east = 90, south = 180, west = 270 };
+    enum months { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
+    enum fruits { orange = INT_MIN, lemon, apple, banana };
+    
+    print_type((enum day)5);
+    print_type(sun);
+    print_type((enum fruits)12);    
+    print_type(lemon);
+    
+    printf("%s", "cmp_greater_equal(mon, sat) returns ");
+    cmp_greater_equal(mon, sat) ? puts("true") : puts("false"); 
+
+    printf("%s", "cmp_greater_equal(mon, sat) returns ");
+    cmp_greater_equal(mon, sat) ? puts("true") : puts("false"); 
+
+    printf("%s", "cmp_equal((enum day)5, orange) returns ");
+    cmp_equal((enum day)5, orange) ? puts("true") : puts("false"); 
+
+    printf("%s", "cmp_greater((enum day)5, orange) returns ");
+    cmp_greater((enum day)5, orange) ? puts("true") : puts("false"); 
+
+    printf("%s", "cmp_greater(lemon, orange) returns ");
+    cmp_greater(lemon, orange) ? puts("true") : puts("false"); 
+    
     printf("%s", "cmp_equal(-1, INT_MAX) returns ");
     cmp_equal(-1, INT_MAX) ? puts("true") : puts("false");
 
