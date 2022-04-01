@@ -1,0 +1,49 @@
+Start testing: Apr 01 11:42 EDT
+----------------------------------------------------------
+1/2 Testing: Arithmetical_Tests
+1/2 Test: Arithmetical_Tests
+Command: "/home/kali/cmp_int/test/TestCmpInt"
+Directory: /home/kali/cmp_int/test
+"Arithmetical_Tests" start time: Apr 01 11:42 EDT
+Output:
+----------------------------------------------------------
+/home/kali/cmp_int/test/TestCmpInt.c:189:test_cmp_equal_arith_property_c:PASS
+
+-----------------------
+1 Tests 0 Failures 0 Ignored 
+OK
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"Arithmetical_Tests" end time: Apr 01 11:42 EDT
+"Arithmetical_Tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: Standard_Library_Tests
+2/2 Test: Standard_Library_Tests
+Command: "/home/kali/cmp_int/test/TestStdLib"
+Directory: /home/kali/cmp_int/test
+"Standard_Library_Tests" start time: Apr 01 11:42 EDT
+Output:
+----------------------------------------------------------
+/home/kali/cmp_int/test/TestStdLib.c:157:std_lib_cmp_equal_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:158:std_lib_cmp_equal_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:159:std_lib_cmp_equal_test_03:PASS
+/home/kali/cmp_int/test/TestStdLib.c:160:std_lib_cmp_greater_equal_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:161:std_lib_cmp_greater_equal_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:162:std_lib_cmp_less_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:163:std_lib_cmp_less_test_02:PASS
+
+-----------------------
+7 Tests 0 Failures 0 Ignored 
+OK
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"Standard_Library_Tests" end time: Apr 01 11:42 EDT
+"Standard_Library_Tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 01 11:42 EDT

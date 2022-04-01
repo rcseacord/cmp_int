@@ -4,7 +4,8 @@ add_executable(TestStdLib TestStdLib.c)
 target_link_libraries(TestCmpInt Unity)
 target_link_libraries(TestStdLib Unity)
 
-add_test(test_cmp_equal TestCmpInt)
+add_test(Arithmetical_Tests TestCmpInt)
+add_test(Standard_Library_Tests	TestStdLib)
 
 ##
 ##target_include_directories(PUBLIC
