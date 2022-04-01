@@ -1,0 +1,1 @@
+/usr/bin/cc -g -rdynamic CMakeFiles/TestCmpInt.dir/TestCmpInt.c.o -o TestCmpInt  ../external/libUnity.a 

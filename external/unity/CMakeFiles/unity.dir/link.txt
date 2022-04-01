@@ -1,0 +1,2 @@
+/usr/bin/ar qc libunity.a CMakeFiles/unity.dir/unity.c.o CMakeFiles/unity.dir/unity_fixture.c.o
+/usr/bin/ranlib libunity.a

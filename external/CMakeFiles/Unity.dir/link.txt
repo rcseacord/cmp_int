@@ -1,0 +1,2 @@
+/usr/bin/ar qc libUnity.a CMakeFiles/Unity.dir/unity/unity.c.o
+/usr/bin/ranlib libUnity.a
