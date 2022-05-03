@@ -3,6 +3,6 @@ cmp_int_1 1 0.00745107
 cmp_int_2 1 0.00689587
 Arithmetical 0 0
 Standard 0 0
-Arithmetical_Tests 2 0.00330824
-Standard_Library_Tests 2 0.0028492
+Arithmetical_Tests 10 0.000548689
+Standard_Library_Tests 8 0.000637248
 ---

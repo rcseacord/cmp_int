@@ -14,7 +14,7 @@ void test_cmp_equal_1(void)
     cast_vector_t one_cast_vector_cpp;
     cast_vector_t one_cast_vector_c;
    
-    infile = fopen ("/home/kali/Desktop/cpp_cmp_equal_1.dat", "r"); 
+    infile = fopen ("cpp_cmp_equal_1.dat", "r"); 
     if (infile == NULL) { 
         fprintf(stderr, "\nError opening file\n"); 
         exit (1); 
@@ -57,7 +57,7 @@ void test_cmp_equal_arith_property_a(void)
 
 
 
-    infile = fopen ("/home/kali/Desktop/cpp_cmp_equal_arith_property_a.dat", "r"); 
+    infile = fopen ("cpp_cmp_equal_arith_property_a.dat", "r"); 
     if (infile == NULL) { 
         fprintf(stderr, "\nError opening file\n"); 
         exit (1); 
@@ -114,7 +114,7 @@ void test_cmp_equal_arith_property_b(void)
 
 
 
-    infile = fopen ("/home/kali/Desktop/cpp_cmp_equal_arith_property_b.dat", "r"); 
+    infile = fopen ("cpp_cmp_equal_arith_property_b.dat", "r"); 
     if (infile == NULL) { 
         fprintf(stderr, "\nError opening file\n"); 
         exit (1); 
