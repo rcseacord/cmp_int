@@ -1,54 +1,57 @@
-Start testing: May 03 13:19 EDT
+Start testing: May 10 11:15 EDT
 ----------------------------------------------------------
 1/2 Testing: Arithmetical_Tests
 1/2 Test: Arithmetical_Tests
 Command: "/home/kali/cmp_int/test/TestCmpInt"
 Directory: /home/kali/cmp_int/test
-"Arithmetical_Tests" start time: May 03 13:19 EDT
+"Arithmetical_Tests" start time: May 10 11:15 EDT
 Output:
 ----------------------------------------------------------
-/home/kali/cmp_int/test/TestCmpInt.c:189:test_cmp_equal_arith_property_c:PASS
+/home/kali/cmp_int/test/TestCmpInt.c:183:test_cmp_equal_1:PASS
+/home/kali/cmp_int/test/TestCmpInt.c:185:test_cmp_equal_arith_property_c_char:PASS
+/home/kali/cmp_int/test/TestCmpInt.c:186:test_cmp_equal_arith_property_c_short:PASS
 
 -----------------------
-1 Tests 0 Failures 0 Ignored 
+3 Tests 0 Failures 0 Ignored 
 OK
 <end of output>
-Test time =   0.01 sec
+Test time =  34.70 sec
 ----------------------------------------------------------
 Test Passed.
-"Arithmetical_Tests" end time: May 03 13:19 EDT
-"Arithmetical_Tests" time elapsed: 00:00:00
+"Arithmetical_Tests" end time: May 10 11:15 EDT
+"Arithmetical_Tests" time elapsed: 00:00:34
 ----------------------------------------------------------
 
 2/2 Testing: Standard_Library_Tests
 2/2 Test: Standard_Library_Tests
 Command: "/home/kali/cmp_int/test/TestStdLib"
 Directory: /home/kali/cmp_int/test
-"Standard_Library_Tests" start time: May 03 13:19 EDT
+"Standard_Library_Tests" start time: May 10 11:15 EDT
 Output:
 ----------------------------------------------------------
-/home/kali/cmp_int/test/TestStdLib.c:245:std_lib_cmp_equal_test_01:PASS
-/home/kali/cmp_int/test/TestStdLib.c:246:std_lib_cmp_equal_test_02:PASS
-/home/kali/cmp_int/test/TestStdLib.c:247:std_lib_cmp_equal_test_03:PASS
-/home/kali/cmp_int/test/TestStdLib.c:248:std_lib_cmp_greater_equal_test_01:PASS
-/home/kali/cmp_int/test/TestStdLib.c:249:std_lib_cmp_greater_equal_test_02:PASS
-/home/kali/cmp_int/test/TestStdLib.c:250:std_lib_cmp_greater_equal_test_03:PASS
-/home/kali/cmp_int/test/TestStdLib.c:251:std_lib_cmp_greater_test_01:PASS
-/home/kali/cmp_int/test/TestStdLib.c:252:std_lib_cmp_less_test_01:PASS
-/home/kali/cmp_int/test/TestStdLib.c:253:std_lib_cmp_less_test_01:PASS
-/home/kali/cmp_int/test/TestStdLib.c:254:std_lib_cmp_less_test_02:PASS
-/home/kali/cmp_int/test/TestStdLib.c:255:std_lib_cmp_less_equal_test_01:PASS
-/home/kali/cmp_int/test/TestStdLib.c:256:std_lib_cmp_less_equal_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:242:std_lib_cmp_equal_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:243:std_lib_cmp_equal_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:244:std_lib_cmp_equal_test_03:PASS
+/home/kali/cmp_int/test/TestStdLib.c:245:std_lib_cmp_greater_equal_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:246:std_lib_cmp_greater_equal_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:247:std_lib_cmp_greater_equal_test_03:PASS
+/home/kali/cmp_int/test/TestStdLib.c:248:std_lib_cmp_greater_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:249:std_lib_cmp_less_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:250:std_lib_cmp_less_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:251:std_lib_cmp_less_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:252:std_lib_cmp_less_equal_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:253:std_lib_cmp_less_equal_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:254:std_lib_cmp_less_equal_test_03:PASS
 
 -----------------------
-12 Tests 0 Failures 0 Ignored 
+13 Tests 0 Failures 0 Ignored 
 OK
 <end of output>
-Test time =   0.01 sec
+Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"Standard_Library_Tests" end time: May 03 13:19 EDT
+"Standard_Library_Tests" end time: May 10 11:15 EDT
 "Standard_Library_Tests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: May 03 13:19 EDT
+End testing: May 10 11:15 EDT

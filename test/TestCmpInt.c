@@ -6,6 +6,8 @@
 #include "unit_test_header.h"
 
 
+//
+// one=one=one=one for all unsigned types:
 void test_cmp_equal_1(void)
 { 
     FILE *infile; 
@@ -46,7 +48,8 @@ void test_cmp_equal_1(void)
     TEST_ASSERT_EQUAL(c_comparison_output.sign_char_cast_comparison,cpp_comparison_input.sign_char_cast_comparison);
 }
 
-
+//
+// for all unsigned a,  a=0 (mod N) <=>  N divides a : 
 void test_cmp_equal_arith_property_a(void)
 {  
     FILE *infile; 
@@ -54,8 +57,6 @@ void test_cmp_equal_arith_property_a(void)
    // test_mod_arith_struct_t c_arith_comp_output;
     per_type_comparison_output_struct_t  cpp_arith_comp_output;
     per_type_comparison_output_struct_t  c_arith_comp_output;
-
-
 
     infile = fopen ("cpp_cmp_equal_arith_property_a.dat", "r"); 
     if (infile == NULL) { 
@@ -66,126 +67,123 @@ void test_cmp_equal_arith_property_a(void)
     fread(&cpp_arith_comp_output, sizeof(struct test_mod_arith_struct_t), 1, infile);		  
     fclose (infile);     
 
-  
-    c_arith_comp_output.unsign_char_cast_comparison=cmp_equal((unsigned char)UCHAR_MAX+1,0);    
-    c_arith_comp_output.unsign_short_cast_comparison=cmp_equal((unsigned short)USHRT_MAX+1,0);
-    c_arith_comp_output.unsign_int_cast_comparison=cmp_equal((unsigned int)UINT_MAX+1,0);
-    c_arith_comp_output.unsign_long_cast_comparison=cmp_equal((unsigned long)ULONG_MAX+1,0);
-    c_arith_comp_output.unsign_long_long_cast_comparison=cmp_equal((unsigned long long)ULLONG_MAX+1,0);
-	 
-    c_arith_comp_output.uint8_t_cast_comparison=cmp_equal((uint8_t)UCHAR_MAX+1,0);    
-    c_arith_comp_output.uint16_t_cast_comparison=cmp_equal((uint16_t)USHRT_MAX+1,0);   
-    c_arith_comp_output.uint32_t_cast_comparison=cmp_equal((uint32_t)UINT_MAX+1,0);
+    short ucharmax_plus_one=UCHAR_MAX+1;
+    int ushortmax_plus_one=USHRT_MAX+1;
+    long uintmax_plus_one=UINT_MAX+1;
+    long long ulongmax_plus_one=ULONG_MAX+1;
+	    
+    int ucharmax_in_ushortmax=(ushortmax_plus_one)%(ucharmax_plus_one);  
+    int ushortmax_in_uintmax=(uintmax_plus_one)%(ushortmax_plus_one); 
+    int uintmax_in_ulongmax=(ulongmax_plus_one)%(uintmax_plus_one);
    
-    
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_char_cast_comparison,
-		    cpp_arith_comp_output.unsign_char_cast_comparison);
+    for(int i=0;i<=ucharmax_in_ushortmax;i++){
+    	c_arith_comp_output.unsign_char_cast_comparison=cmp_equal((unsigned char)i*ucharmax_plus_one,0);    
+    	TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_char_cast_comparison, 
+		    cpp_arith_comp_output.unsign_char_cast_comparison); 
+		    }
 
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_short_cast_comparison,
-		    cpp_arith_comp_output.unsign_short_cast_comparison);
+    for(int i=0;i<=ushortmax_in_uintmax;i++){
+    	c_arith_comp_output.unsign_char_cast_comparison=cmp_equal((unsigned short)i*ushortmax_plus_one,0);    
+    	TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_short_cast_comparison, 
+		    cpp_arith_comp_output.unsign_short_cast_comparison); 
+		    }
 
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_int_cast_comparison, 
-		    cpp_arith_comp_output.unsign_int_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_long_cast_comparison,
-		    cpp_arith_comp_output.unsign_long_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_long_long_cast_comparison,
-		    cpp_arith_comp_output.unsign_long_long_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.uint8_t_cast_comparison,
-		    cpp_arith_comp_output.uint8_t_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.uint16_t_cast_comparison,
-		    cpp_arith_comp_output.uint16_t_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.uint32_t_cast_comparison,
-		    cpp_arith_comp_output.uint32_t_cast_comparison);
+    for(int i=0;i<=uintmax_in_ulongmax;i++){
+    	c_arith_comp_output.unsign_char_cast_comparison=cmp_equal((unsigned int)i*uintmax_plus_one,0);    
+    	TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_int_cast_comparison, 
+		    cpp_arith_comp_output.unsign_int_cast_comparison); 
+		    }
 }
 
-
-void test_cmp_equal_arith_property_b(void)
-{ 
-    FILE *infile; 
-   // test_mod_arith_struct_t cpp_arith_comp_output; 
-   // test_mod_arith_struct_t c_arith_comp_output;
-    per_type_comparison_output_struct_t  cpp_arith_comp_output;
-    per_type_comparison_output_struct_t  c_arith_comp_output;
-
-
-
-    infile = fopen ("cpp_cmp_equal_arith_property_b.dat", "r"); 
-    if (infile == NULL) { 
-        fprintf(stderr, "\nError opening file\n"); 
-        exit (1); 
-    }  
-     
-    fread(&cpp_arith_comp_output, sizeof(struct test_mod_arith_struct_t), 1, infile);		  
-    fclose (infile);     
-
-  
-    c_arith_comp_output.unsign_char_cast_comparison=cmp_equal((unsigned char)(2+2*UCHAR_MAX),1);    
-    c_arith_comp_output.unsign_short_cast_comparison=cmp_equal((unsigned short)(2+2*USHRT_MAX),1);
-    c_arith_comp_output.unsign_int_cast_comparison=cmp_equal((unsigned int)(2+2*UINT_MAX+1),1);
-    c_arith_comp_output.unsign_long_cast_comparison=cmp_equal((unsigned long)(2+2*ULONG_MAX),1);
-    c_arith_comp_output.unsign_long_long_cast_comparison=cmp_equal((unsigned long long)(2+2*ULLONG_MAX),1);
-	 
-    c_arith_comp_output.uint8_t_cast_comparison=cmp_equal((uint8_t)(2+2*UCHAR_MAX),1);    
-    c_arith_comp_output.uint16_t_cast_comparison=cmp_equal((uint16_t)(2+2*USHRT_MAX),1);   
-    c_arith_comp_output.uint32_t_cast_comparison=cmp_equal((uint32_t)(2+2*UINT_MAX),1);
-   
-    
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_char_cast_comparison,
-		    cpp_arith_comp_output.unsign_char_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_short_cast_comparison,
-		    cpp_arith_comp_output.unsign_short_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_int_cast_comparison, 
-		    cpp_arith_comp_output.unsign_int_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_long_cast_comparison,
-		    cpp_arith_comp_output.unsign_long_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.unsign_long_long_cast_comparison,
-		    cpp_arith_comp_output.unsign_long_long_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.uint8_t_cast_comparison,
-		    cpp_arith_comp_output.uint8_t_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.uint16_t_cast_comparison,
-		    cpp_arith_comp_output.uint16_t_cast_comparison);
-
-    TEST_ASSERT_EQUAL(c_arith_comp_output.uint32_t_cast_comparison,
-		    cpp_arith_comp_output.uint32_t_cast_comparison);
-}
-
-void test_cmp_equal_arith_property_c(void)
+//
+//every integer is congruent modulo N to one and only one element of the set {0 …. N-1}:
+void test_cmp_equal_arith_property_c_char(void)
 {
-	unsigned int overflow_index;
-	unsigned char residue_index;
-	unsigned char counter=0;
+	
+	#define UCHAR_IN_UINT UINT_MAX%UCHAR_MAX
 
-	for (residue_index=0; residue_index<UCHAR_MAX-1; residue_index++){
-		for (overflow_index=UCHAR_MAX; overflow_index<2*UCHAR_MAX-1; overflow_index++){
-     	    		if(cmp_equal((unsigned char)(residue_index+ overflow_index), residue_index)) {
-           		  	counter+=1;
+	unsigned int uint_overflow_index;
+
+	unsigned char uchar_residue_index;
+	unsigned char uchar_counter=0;
+
+	for (uchar_residue_index=0;uchar_residue_index<UCHAR_MAX-1;uchar_residue_index++){
+		for (uint_overflow_index=UCHAR_MAX;uint_overflow_index<UINT_MAX-UCHAR_MAX-1;uint_overflow_index+=UCHAR_MAX){
+     	    		if(cmp_equal((unsigned char)(uchar_residue_index+uint_overflow_index),uchar_residue_index)) {
+           			uchar_counter+=1;
             			}	
 			}
-			TEST_ASSERT_EQUAL_MESSAGE(counter,1,"VALUE IS CONGRUENT TO MORE THAN ONE RESIDUE");
-			counter = 0;
+			TEST_ASSERT_EQUAL_MESSAGE(uchar_counter,UCHAR_IN_UINT,"VALUE IS CONGRUENT TO MORE THAN ONE RESIDUE");
+			uchar_counter = 0;
 		}
 
 } 
 
 
 
+//
+//every integer is congruent modulo N to one and only one element of the set {0 …. N-1}:
+void test_cmp_equal_arith_property_c_short(void)
+{	
+	#define USHRT_IN_UINT UINT_MAX%USHRT_MAX
+
+	unsigned int uint_overflow_index;
+
+	unsigned int ushort_residue_index;
+	unsigned int ushort_counter=0;
+	
+	for (ushort_residue_index=0;ushort_residue_index<USHRT_MAX-1;ushort_residue_index++){
+		for (uint_overflow_index=USHRT_MAX;uint_overflow_index<UINT_MAX-USHRT_MAX-1;uint_overflow_index+=USHRT_MAX){
+     	    		if(cmp_equal((unsigned int)(ushort_residue_index+uint_overflow_index),ushort_residue_index)) {
+           		  	ushort_counter+=1;
+            			}	
+			}
+			TEST_ASSERT_EQUAL_MESSAGE(ushort_counter,USHRT_IN_UINT,"VALUE IS CONGRUENT TO MORE THAN ONE RESIDUE");
+			ushort_counter = 0;
+	}	
+
+} 
+
+
+//
+//every integer is congruent modulo N to one and only one element of the set {0 …. N-1}:
+void test_cmp_equal_arith_property_c_int(void)
+{	
+	#define UINT_IN_ULONG ULONG_MAX%UINT_MAX
+
+	unsigned long ulong_overflow_index;	
+
+	unsigned int uint_residue_index;
+	unsigned int uint_counter=0;
+	
+	for (uint_residue_index=0;uint_residue_index<USHRT_MAX-1;uint_residue_index++){
+		for (ulong_overflow_index=UINT_MAX;ulong_overflow_index<ULONG_MAX-UINT_MAX-1;ulong_overflow_index+=UINT_MAX){
+     	    		if(cmp_equal((unsigned int)(uint_residue_index+ulong_overflow_index),uint_residue_index)) {
+           		  	uint_counter+=1;
+            			}	
+			}
+			TEST_ASSERT_EQUAL_MESSAGE(uint_counter,UINT_IN_ULONG,"VALUE IS CONGRUENT TO MORE THAN ONE RESIDUE");
+			uint_counter = 0;
+	}	
+
+} 
+
+
+void test_cmp_equal_arith_property_d(void)
+{
+
+	
+
+}
+
 
 int main(void)
 {
      UNITY_BEGIN();
-   //  RUN_TEST(test_cmp_equal_1);
+     RUN_TEST(test_cmp_equal_1);
    //  RUN_TEST(test_cmp_equal_arith_property_a);
-     RUN_TEST(test_cmp_equal_arith_property_c); 
+     RUN_TEST(test_cmp_equal_arith_property_c_char); 
+     RUN_TEST(test_cmp_equal_arith_property_c_short); 
+   //  RUN_TEST(test_cmp_equal_arith_property_c_long); 
      return UNITY_END();
 }

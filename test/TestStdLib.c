@@ -16,7 +16,7 @@ void std_lib_cmp_equal_test_02(void)
 {
   short x = -1;
   int y = -1;
-  TEST_ASSERT_TRUE(cmp_equal(x, y));
+  TEST_ASSERT_TRUE(cmp_equal(x,y));
   TEST_ASSERT_TRUE(cmp_equal(x,y));
 
   unsigned int a=(unsigned int) -1;
@@ -175,7 +175,6 @@ void std_lib_cmp_less_test_03(void)
   TEST_ASSERT_FALSE(cmp_less(u'a',97));
   TEST_ASSERT_FALSE(cmp_less(97,U'a'));  
   TEST_ASSERT_FALSE(cmp_less(U'a',97)); 
-
 }
 
 
@@ -237,8 +236,6 @@ void std_lib_cmp_less_equal_test_03(void)
 }
 
 
-
-
 int main(void)
 {
      UNITY_BEGIN(); 
@@ -254,7 +251,7 @@ int main(void)
      RUN_TEST(std_lib_cmp_less_test_02);
      RUN_TEST(std_lib_cmp_less_equal_test_01);
      RUN_TEST(std_lib_cmp_less_equal_test_02);
-  //   RUN_TEST(std_lib_cmp_less_equal_test_03);
+     RUN_TEST(std_lib_cmp_less_equal_test_03);
       
      return UNITY_END();
 }

@@ -23,7 +23,6 @@
 // SOFTWARE.
 //
 //===----------------------------------------------------------------------===//
-
 #ifndef CMP_INT_H
 #define CMP_INT_H
 
@@ -37,7 +36,7 @@
 #endif // CMP_INT_WANT_PORTABLE
 
 #define is_supported_type(x) (_Generic((x), \
-                         default: 0, \
+                         default: is_supported_type_fixed_width(x), \
                          signed char: 1, \
                          signed short: 1, \
                          signed int: 1, \
@@ -47,27 +46,52 @@
                          unsigned short: 1, \
                          unsigned int: 1, \
                          unsigned long: 1, \
-                         unsigned long long: 1))
+                         unsigned long long:1 ))
+                         
+#define is_supported_type_fixed_width(x) (_Generic((x), \
+                         default: 0, \
+                         int8_t: 1, \
+                         int16_t: 1, \
+                         int32_t: 1, \
+                         int64_t: 1, \
+                         uint8_t: 1, \
+                         uint16_t: 1, \
+                         uint32_t: 1, \
+                         uint64_t: 1 ))
 
 #define is_signed(x) (_Generic((x), \
-                         default: 0, \
+                         default: is_signed_fixed_width(x), \
                          signed char: 1, \
                          signed short: 1, \
                          signed int: 1, \
                          signed long: 1, \
                          signed long long: 1))
+                         
+#define is_signed_fixed_width(x) (_Generic((x), \
+                         default: 0, \
+                         int8_t: 1, \
+                         int16_t: 1, \
+                         int32_t: 1, \
+                         int64_t: 1))                         
 
 #define make_unsigned(x) (_Generic((x), \
-                         default: (x), \
+                         default: make_unsigned_fixed_width(x), \
                          signed char: ((unsigned char)x), \
                          signed short: ((unsigned short)x), \
                          signed int: ((unsigned int)x), \
                          signed long: ((unsigned long)x), \
                          signed long long: (unsigned long long)x))
+                                          
+#define make_unsigned_fixed_width(x) (_Generic((x), \
+                         default: (x), \
+                         int8_t: ((uint8_t)x), \
+                         int16_t: ((uint16_t)x), \
+                         int32_t: ((uint32_t)x), \
+                         int64_t: ((uint64_t)x)))
 
 #define check(val, which)                                                      \
   _Static_assert(                                                              \
-      is_supported_type(val), which                                            \
+      is_supported_type_fixed_width(val)||is_supported_type(val), which                                            \
       " is not a supported type: must be an integer other than bool or char")
 
 #if CMP_INT_WANT_PORTABLE
