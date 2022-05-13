@@ -127,18 +127,18 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-test/CMakeFiles/TestCmpInt.dir/rule:
-	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/TestCmpInt.dir/rule
-.PHONY : test/CMakeFiles/TestCmpInt.dir/rule
+test/CMakeFiles/TestUnsignedEqual.dir/rule:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/TestUnsignedEqual.dir/rule
+.PHONY : test/CMakeFiles/TestUnsignedEqual.dir/rule
 
 # Convenience name for target.
-TestCmpInt: test/CMakeFiles/TestCmpInt.dir/rule
-.PHONY : TestCmpInt
+TestUnsignedEqual: test/CMakeFiles/TestUnsignedEqual.dir/rule
+.PHONY : TestUnsignedEqual
 
 # fast build rule for target.
-TestCmpInt/fast:
-	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestCmpInt.dir/build.make test/CMakeFiles/TestCmpInt.dir/build
-.PHONY : TestCmpInt/fast
+TestUnsignedEqual/fast:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestUnsignedEqual.dir/build.make test/CMakeFiles/TestUnsignedEqual.dir/build
+.PHONY : TestUnsignedEqual/fast
 
 # Convenience name for target.
 test/CMakeFiles/TestStdLib.dir/rule:
@@ -153,30 +153,6 @@ TestStdLib: test/CMakeFiles/TestStdLib.dir/rule
 TestStdLib/fast:
 	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestStdLib.dir/build.make test/CMakeFiles/TestStdLib.dir/build
 .PHONY : TestStdLib/fast
-
-TestCmpInt.o: TestCmpInt.c.o
-.PHONY : TestCmpInt.o
-
-# target to build an object file
-TestCmpInt.c.o:
-	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestCmpInt.dir/build.make test/CMakeFiles/TestCmpInt.dir/TestCmpInt.c.o
-.PHONY : TestCmpInt.c.o
-
-TestCmpInt.i: TestCmpInt.c.i
-.PHONY : TestCmpInt.i
-
-# target to preprocess a source file
-TestCmpInt.c.i:
-	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestCmpInt.dir/build.make test/CMakeFiles/TestCmpInt.dir/TestCmpInt.c.i
-.PHONY : TestCmpInt.c.i
-
-TestCmpInt.s: TestCmpInt.c.s
-.PHONY : TestCmpInt.s
-
-# target to generate assembly for a file
-TestCmpInt.c.s:
-	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestCmpInt.dir/build.make test/CMakeFiles/TestCmpInt.dir/TestCmpInt.c.s
-.PHONY : TestCmpInt.c.s
 
 TestStdLib.o: TestStdLib.c.o
 .PHONY : TestStdLib.o
@@ -202,6 +178,30 @@ TestStdLib.c.s:
 	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestStdLib.dir/build.make test/CMakeFiles/TestStdLib.dir/TestStdLib.c.s
 .PHONY : TestStdLib.c.s
 
+unsigned_cmp_equal.o: unsigned_cmp_equal.c.o
+.PHONY : unsigned_cmp_equal.o
+
+# target to build an object file
+unsigned_cmp_equal.c.o:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestUnsignedEqual.dir/build.make test/CMakeFiles/TestUnsignedEqual.dir/unsigned_cmp_equal.c.o
+.PHONY : unsigned_cmp_equal.c.o
+
+unsigned_cmp_equal.i: unsigned_cmp_equal.c.i
+.PHONY : unsigned_cmp_equal.i
+
+# target to preprocess a source file
+unsigned_cmp_equal.c.i:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestUnsignedEqual.dir/build.make test/CMakeFiles/TestUnsignedEqual.dir/unsigned_cmp_equal.c.i
+.PHONY : unsigned_cmp_equal.c.i
+
+unsigned_cmp_equal.s: unsigned_cmp_equal.c.s
+.PHONY : unsigned_cmp_equal.s
+
+# target to generate assembly for a file
+unsigned_cmp_equal.c.s:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestUnsignedEqual.dir/build.make test/CMakeFiles/TestUnsignedEqual.dir/unsigned_cmp_equal.c.s
+.PHONY : unsigned_cmp_equal.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -211,14 +211,14 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... TestCmpInt"
 	@echo "... TestStdLib"
-	@echo "... TestCmpInt.o"
-	@echo "... TestCmpInt.i"
-	@echo "... TestCmpInt.s"
+	@echo "... TestUnsignedEqual"
 	@echo "... TestStdLib.o"
 	@echo "... TestStdLib.i"
 	@echo "... TestStdLib.s"
+	@echo "... unsigned_cmp_equal.o"
+	@echo "... unsigned_cmp_equal.i"
+	@echo "... unsigned_cmp_equal.s"
 .PHONY : help
 
 

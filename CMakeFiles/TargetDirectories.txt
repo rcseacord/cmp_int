@@ -33,7 +33,7 @@
 /home/kali/cmp_int/external/CMakeFiles/test.dir
 /home/kali/cmp_int/external/CMakeFiles/edit_cache.dir
 /home/kali/cmp_int/external/CMakeFiles/rebuild_cache.dir
-/home/kali/cmp_int/test/CMakeFiles/TestCmpInt.dir
+/home/kali/cmp_int/test/CMakeFiles/TestUnsignedEqual.dir
 /home/kali/cmp_int/test/CMakeFiles/TestStdLib.dir
 /home/kali/cmp_int/test/CMakeFiles/test.dir
 /home/kali/cmp_int/test/CMakeFiles/edit_cache.dir

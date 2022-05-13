@@ -81,6 +81,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ContinuousMemCheck.dir/DependInfo.cmake"
   "CMakeFiles/ContinuousSubmit.dir/DependInfo.cmake"
   "external/CMakeFiles/Unity.dir/DependInfo.cmake"
-  "test/CMakeFiles/TestCmpInt.dir/DependInfo.cmake"
+  "test/CMakeFiles/TestUnsignedEqual.dir/DependInfo.cmake"
   "test/CMakeFiles/TestStdLib.dir/DependInfo.cmake"
   )

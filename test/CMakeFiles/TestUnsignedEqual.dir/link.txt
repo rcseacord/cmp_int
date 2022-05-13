@@ -1,0 +1,1 @@
+/usr/bin/cc -g -rdynamic CMakeFiles/TestUnsignedEqual.dir/unsigned_cmp_equal.c.o -o TestUnsignedEqual  ../external/libUnity.a 

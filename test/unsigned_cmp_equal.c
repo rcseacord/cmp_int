@@ -81,7 +81,7 @@ void test_cmp_equal_arith_property_a(void)
     int uintmax_in_ulongmax=(ulongmax_plus_one)/(uintmax_plus_one);
     
     int eight_in_sixteen=two_sixteen/two_eight;
-    int sixteen_in_thirtytwo=two_thirty/two_sixteen;
+    int sixteen_in_thirtytwo=two_thirtytwo/two_sixteen;
 
    
     for(int i=0;i<=ucharmax_in_ushortmax;i++){
@@ -104,14 +104,14 @@ void test_cmp_equal_arith_property_a(void)
 
      
     for(int i=0;i<=eight_in_sixteen;i++){
-    	c_arith_comp_output.uint8_cast_comparison=cmp_equal((uint8_t)i*two_eight,0);    
+    	c_arith_comp_output.uint8_t_cast_comparison=cmp_equal((uint8_t)i*two_eight,0);    
     	TEST_ASSERT_EQUAL(c_arith_comp_output.uint8_t_cast_comparison, 
 		    cpp_arith_comp_output.uint8_t_cast_comparison); 
 		    }
 
      
     for(int i=0;i<=sixteen_in_thirtytwo;i++){
-    	c_arith_comp_output.uint16_cast_comparison=cmp_equal((uint16_t)i*two_sixteen,0);    
+    	c_arith_comp_output.uint16_t_cast_comparison=cmp_equal((uint16_t)i*two_sixteen,0);    
     	TEST_ASSERT_EQUAL(c_arith_comp_output.uint16_t_cast_comparison, 
 		    cpp_arith_comp_output.uint16_t_cast_comparison); 
 		    }

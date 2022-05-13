@@ -91,7 +91,7 @@
 
 #define check(val, which)                                                      \
   _Static_assert(                                                              \
-      is_supported_type_fixed_width(val)||is_supported_type(val), which                                            \
+      is_supported_type(val), which                                            \
       " is not a supported type: must be an integer other than bool or char")
 
 #if CMP_INT_WANT_PORTABLE

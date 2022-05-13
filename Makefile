@@ -504,17 +504,17 @@ Unity/fast:
 .PHONY : Unity/fast
 
 #=============================================================================
-# Target rules for targets named TestCmpInt
+# Target rules for targets named TestUnsignedEqual
 
 # Build rule for target.
-TestCmpInt: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TestCmpInt
-.PHONY : TestCmpInt
+TestUnsignedEqual: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TestUnsignedEqual
+.PHONY : TestUnsignedEqual
 
 # fast build rule for target.
-TestCmpInt/fast:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestCmpInt.dir/build.make test/CMakeFiles/TestCmpInt.dir/build
-.PHONY : TestCmpInt/fast
+TestUnsignedEqual/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestUnsignedEqual.dir/build.make test/CMakeFiles/TestUnsignedEqual.dir/build
+.PHONY : TestUnsignedEqual/fast
 
 #=============================================================================
 # Target rules for targets named TestStdLib
@@ -566,8 +566,8 @@ help:
 	@echo "... NightlySubmit"
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
-	@echo "... TestCmpInt"
 	@echo "... TestStdLib"
+	@echo "... TestUnsignedEqual"
 	@echo "... Unity"
 .PHONY : help
 

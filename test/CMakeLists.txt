@@ -1,10 +1,10 @@
-add_executable(TestCmpInt TestCmpInt.c)
+add_executable(TestUnsignedEqual unsigned_cmp_equal.c)
 add_executable(TestStdLib TestStdLib.c)
 
-target_link_libraries(TestCmpInt Unity)
+target_link_libraries(TestUnsignedEqual Unity)
 target_link_libraries(TestStdLib Unity)
 
-add_test(Arithmetical_Tests TestCmpInt)
+add_test(Arithmetic_Unsigned_Equal TestUnsignedEqual)
 add_test(Standard_Library_Tests	TestStdLib)
 
 ##
