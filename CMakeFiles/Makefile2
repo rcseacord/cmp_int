@@ -126,6 +126,7 @@ external/clean: external/CMakeFiles/Unity.dir/clean
 # Recursive "all" directory target.
 test/all: test/CMakeFiles/TestUnsignedEqual.dir/all
 test/all: test/CMakeFiles/TestStdLib.dir/all
+test/all: test/CMakeFiles/TestSignedEqual.dir/all
 .PHONY : test/all
 
 # Recursive "preinstall" directory target.
@@ -135,6 +136,7 @@ test/preinstall:
 # Recursive "clean" directory target.
 test/clean: test/CMakeFiles/TestUnsignedEqual.dir/clean
 test/clean: test/CMakeFiles/TestStdLib.dir/clean
+test/clean: test/CMakeFiles/TestSignedEqual.dir/clean
 .PHONY : test/clean
 
 #=============================================================================
@@ -872,7 +874,7 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 external/CMakeFiles/Unity.dir/all:
 	$(MAKE) $(MAKESILENT) -f external/CMakeFiles/Unity.dir/build.make external/CMakeFiles/Unity.dir/depend
 	$(MAKE) $(MAKESILENT) -f external/CMakeFiles/Unity.dir/build.make external/CMakeFiles/Unity.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kali/cmp_int/CMakeFiles --progress-num=5,6 "Built target Unity"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kali/cmp_int/CMakeFiles --progress-num=7,8 "Built target Unity"
 .PHONY : external/CMakeFiles/Unity.dir/all
 
 # Build rule for subdir invocation for target.
@@ -898,7 +900,7 @@ external/CMakeFiles/Unity.dir/clean:
 test/CMakeFiles/TestUnsignedEqual.dir/all: external/CMakeFiles/Unity.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestUnsignedEqual.dir/build.make test/CMakeFiles/TestUnsignedEqual.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestUnsignedEqual.dir/build.make test/CMakeFiles/TestUnsignedEqual.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kali/cmp_int/CMakeFiles --progress-num=3,4 "Built target TestUnsignedEqual"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kali/cmp_int/CMakeFiles --progress-num=5,6 "Built target TestUnsignedEqual"
 .PHONY : test/CMakeFiles/TestUnsignedEqual.dir/all
 
 # Build rule for subdir invocation for target.
@@ -924,7 +926,7 @@ test/CMakeFiles/TestUnsignedEqual.dir/clean:
 test/CMakeFiles/TestStdLib.dir/all: external/CMakeFiles/Unity.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestStdLib.dir/build.make test/CMakeFiles/TestStdLib.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestStdLib.dir/build.make test/CMakeFiles/TestStdLib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kali/cmp_int/CMakeFiles --progress-num=1,2 "Built target TestStdLib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kali/cmp_int/CMakeFiles --progress-num=3,4 "Built target TestStdLib"
 .PHONY : test/CMakeFiles/TestStdLib.dir/all
 
 # Build rule for subdir invocation for target.
@@ -942,6 +944,32 @@ TestStdLib: test/CMakeFiles/TestStdLib.dir/rule
 test/CMakeFiles/TestStdLib.dir/clean:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestStdLib.dir/build.make test/CMakeFiles/TestStdLib.dir/clean
 .PHONY : test/CMakeFiles/TestStdLib.dir/clean
+
+#=============================================================================
+# Target rules for target test/CMakeFiles/TestSignedEqual.dir
+
+# All Build rule for target.
+test/CMakeFiles/TestSignedEqual.dir/all: external/CMakeFiles/Unity.dir/all
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestSignedEqual.dir/build.make test/CMakeFiles/TestSignedEqual.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestSignedEqual.dir/build.make test/CMakeFiles/TestSignedEqual.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kali/cmp_int/CMakeFiles --progress-num=1,2 "Built target TestSignedEqual"
+.PHONY : test/CMakeFiles/TestSignedEqual.dir/all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/TestSignedEqual.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kali/cmp_int/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/TestSignedEqual.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kali/cmp_int/CMakeFiles 0
+.PHONY : test/CMakeFiles/TestSignedEqual.dir/rule
+
+# Convenience name for target.
+TestSignedEqual: test/CMakeFiles/TestSignedEqual.dir/rule
+.PHONY : TestSignedEqual
+
+# clean rule for target.
+test/CMakeFiles/TestSignedEqual.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestSignedEqual.dir/build.make test/CMakeFiles/TestSignedEqual.dir/clean
+.PHONY : test/CMakeFiles/TestSignedEqual.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

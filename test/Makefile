@@ -154,6 +154,20 @@ TestStdLib/fast:
 	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestStdLib.dir/build.make test/CMakeFiles/TestStdLib.dir/build
 .PHONY : TestStdLib/fast
 
+# Convenience name for target.
+test/CMakeFiles/TestSignedEqual.dir/rule:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/TestSignedEqual.dir/rule
+.PHONY : test/CMakeFiles/TestSignedEqual.dir/rule
+
+# Convenience name for target.
+TestSignedEqual: test/CMakeFiles/TestSignedEqual.dir/rule
+.PHONY : TestSignedEqual
+
+# fast build rule for target.
+TestSignedEqual/fast:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestSignedEqual.dir/build.make test/CMakeFiles/TestSignedEqual.dir/build
+.PHONY : TestSignedEqual/fast
+
 TestStdLib.o: TestStdLib.c.o
 .PHONY : TestStdLib.o
 
@@ -177,6 +191,30 @@ TestStdLib.s: TestStdLib.c.s
 TestStdLib.c.s:
 	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestStdLib.dir/build.make test/CMakeFiles/TestStdLib.dir/TestStdLib.c.s
 .PHONY : TestStdLib.c.s
+
+signed_cmp_equal.o: signed_cmp_equal.c.o
+.PHONY : signed_cmp_equal.o
+
+# target to build an object file
+signed_cmp_equal.c.o:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestSignedEqual.dir/build.make test/CMakeFiles/TestSignedEqual.dir/signed_cmp_equal.c.o
+.PHONY : signed_cmp_equal.c.o
+
+signed_cmp_equal.i: signed_cmp_equal.c.i
+.PHONY : signed_cmp_equal.i
+
+# target to preprocess a source file
+signed_cmp_equal.c.i:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestSignedEqual.dir/build.make test/CMakeFiles/TestSignedEqual.dir/signed_cmp_equal.c.i
+.PHONY : signed_cmp_equal.c.i
+
+signed_cmp_equal.s: signed_cmp_equal.c.s
+.PHONY : signed_cmp_equal.s
+
+# target to generate assembly for a file
+signed_cmp_equal.c.s:
+	cd /home/kali/cmp_int && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestSignedEqual.dir/build.make test/CMakeFiles/TestSignedEqual.dir/signed_cmp_equal.c.s
+.PHONY : signed_cmp_equal.c.s
 
 unsigned_cmp_equal.o: unsigned_cmp_equal.c.o
 .PHONY : unsigned_cmp_equal.o
@@ -211,11 +249,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... TestSignedEqual"
 	@echo "... TestStdLib"
 	@echo "... TestUnsignedEqual"
 	@echo "... TestStdLib.o"
 	@echo "... TestStdLib.i"
 	@echo "... TestStdLib.s"
+	@echo "... signed_cmp_equal.o"
+	@echo "... signed_cmp_equal.i"
+	@echo "... signed_cmp_equal.s"
 	@echo "... unsigned_cmp_equal.o"
 	@echo "... unsigned_cmp_equal.i"
 	@echo "... unsigned_cmp_equal.s"

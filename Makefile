@@ -529,6 +529,19 @@ TestStdLib/fast:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestStdLib.dir/build.make test/CMakeFiles/TestStdLib.dir/build
 .PHONY : TestStdLib/fast
 
+#=============================================================================
+# Target rules for targets named TestSignedEqual
+
+# Build rule for target.
+TestSignedEqual: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TestSignedEqual
+.PHONY : TestSignedEqual
+
+# fast build rule for target.
+TestSignedEqual/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TestSignedEqual.dir/build.make test/CMakeFiles/TestSignedEqual.dir/build
+.PHONY : TestSignedEqual/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -566,6 +579,7 @@ help:
 	@echo "... NightlySubmit"
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
+	@echo "... TestSignedEqual"
 	@echo "... TestStdLib"
 	@echo "... TestUnsignedEqual"
 	@echo "... Unity"

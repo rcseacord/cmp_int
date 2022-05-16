@@ -83,4 +83,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "external/CMakeFiles/Unity.dir/DependInfo.cmake"
   "test/CMakeFiles/TestUnsignedEqual.dir/DependInfo.cmake"
   "test/CMakeFiles/TestStdLib.dir/DependInfo.cmake"
+  "test/CMakeFiles/TestSignedEqual.dir/DependInfo.cmake"
   )

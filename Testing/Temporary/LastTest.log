@@ -1,18 +1,24 @@
-Start testing: May 12 10:45 EDT
+Start testing: May 16 07:32 EDT
 ----------------------------------------------------------
-1/2 Testing: Arithmetical_Tests
-1/2 Test: Arithmetical_Tests
-Command: "/home/kali/cmp_int/test/TestCmpInt"
+1/1 Testing: Arithmetic_Signed_Equal
+1/1 Test: Arithmetic_Signed_Equal
+Command: "/home/kali/cmp_int/test/TestSignedEqual"
 Directory: /home/kali/cmp_int/test
-"Arithmetical_Tests" start time: May 12 10:45 EDT
+"Arithmetic_Signed_Equal" start time: May 16 07:32 EDT
 Output:
 ----------------------------------------------------------
+/home/kali/cmp_int/test/signed_cmp_equal.c:72:test_cmp_equal_arith_property_x:PASS
+/home/kali/cmp_int/test/signed_cmp_equal.c:73:test_cmp_equal_arith_property_y:PASS
+
+-----------------------
+2 Tests 0 Failures 0 Ignored 
+OK
 <end of output>
-Test time = 1500.10 sec
+Test time =   0.00 sec
 ----------------------------------------------------------
-Test Failed.
-"Arithmetical_Tests" end time: May 12 11:10 EDT
-"Arithmetical_Tests" time elapsed: 00:25:00
+Test Passed.
+"Arithmetic_Signed_Equal" end time: May 16 07:32 EDT
+"Arithmetic_Signed_Equal" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: May 12 11:10 EDT
+End testing: May 16 07:32 EDT
