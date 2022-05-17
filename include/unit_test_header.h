@@ -9,6 +9,12 @@ typedef struct cast_vector_t{
         unsigned short var_unsign_short_cast;	
   	signed int var_sign_int_cast;
 	unsigned int var_unsign_int_cast;
+	int8_t var_int8_t_cast;
+	uint8_t var_uint8_t_cast;
+	int16_t var_int16_t_cast;
+	uint16_t var_uint16_t_cast;
+	int32_t var_int32_t_cast;
+	uint32_t var_uint32_t_cast;
 	} cast_vector_t;
 
 typedef struct identity_vector_sign_char_t{
@@ -42,8 +48,14 @@ typedef struct operator_output_t{
 	bool sign_short_cast_comparison;
  	bool unsign_short_cast_comparison;
 	bool sign_int_cast_comparison;
-	bool unsign_int_cast_comparison;
-	} operator_output_t;   
+	bool unsign_int_cast_comparison;	
+	bool int8_t_cast_comparison;
+	bool uint8_t_cast_comparison;
+	bool int16_t_cast_comparison;
+	bool uint16_t_cast_comparison;
+	bool int32_t_cast_comparison;
+	bool uint32_t_cast_comparison;
+} operator_output_t;   
 
 typedef struct test_input_struct_t{
 	operand_pair_t input_operand_pair;

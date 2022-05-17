@@ -1,10 +1,64 @@
-Start testing: May 16 07:32 EDT
+Start testing: May 17 14:01 EDT
 ----------------------------------------------------------
-1/1 Testing: Arithmetic_Signed_Equal
-1/1 Test: Arithmetic_Signed_Equal
+1/3 Testing: Arithmetic_Unsigned_Equal
+1/3 Test: Arithmetic_Unsigned_Equal
+Command: "/home/kali/cmp_int/test/TestUnsignedEqual"
+Directory: /home/kali/cmp_int/test
+"Arithmetic_Unsigned_Equal" start time: May 17 14:01 EDT
+Output:
+----------------------------------------------------------
+/home/kali/cmp_int/test/unsigned_cmp_equal.c:260:test_cmp_equal_unsigned_b:PASS
+/home/kali/cmp_int/test/unsigned_cmp_equal.c:261:test_cmp_equal_unsigned_c:PASS
+/home/kali/cmp_int/test/unsigned_cmp_equal.c:263:test_cmp_equal_unsigned_e:PASS
+
+-----------------------
+3 Tests 0 Failures 0 Ignored 
+OK
+<end of output>
+Test time =  52.74 sec
+----------------------------------------------------------
+Test Passed.
+"Arithmetic_Unsigned_Equal" end time: May 17 14:02 EDT
+"Arithmetic_Unsigned_Equal" time elapsed: 00:00:52
+----------------------------------------------------------
+
+2/3 Testing: Standard_Library_Tests
+2/3 Test: Standard_Library_Tests
+Command: "/home/kali/cmp_int/test/TestStdLib"
+Directory: /home/kali/cmp_int/test
+"Standard_Library_Tests" start time: May 17 14:02 EDT
+Output:
+----------------------------------------------------------
+/home/kali/cmp_int/test/TestStdLib.c:242:std_lib_cmp_equal_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:243:std_lib_cmp_equal_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:244:std_lib_cmp_equal_test_03:PASS
+/home/kali/cmp_int/test/TestStdLib.c:245:std_lib_cmp_greater_equal_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:246:std_lib_cmp_greater_equal_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:247:std_lib_cmp_greater_equal_test_03:PASS
+/home/kali/cmp_int/test/TestStdLib.c:248:std_lib_cmp_greater_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:249:std_lib_cmp_less_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:250:std_lib_cmp_less_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:251:std_lib_cmp_less_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:252:std_lib_cmp_less_equal_test_01:PASS
+/home/kali/cmp_int/test/TestStdLib.c:253:std_lib_cmp_less_equal_test_02:PASS
+/home/kali/cmp_int/test/TestStdLib.c:254:std_lib_cmp_less_equal_test_03:PASS
+
+-----------------------
+13 Tests 0 Failures 0 Ignored 
+OK
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"Standard_Library_Tests" end time: May 17 14:02 EDT
+"Standard_Library_Tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/3 Testing: Arithmetic_Signed_Equal
+3/3 Test: Arithmetic_Signed_Equal
 Command: "/home/kali/cmp_int/test/TestSignedEqual"
 Directory: /home/kali/cmp_int/test
-"Arithmetic_Signed_Equal" start time: May 16 07:32 EDT
+"Arithmetic_Signed_Equal" start time: May 17 14:02 EDT
 Output:
 ----------------------------------------------------------
 /home/kali/cmp_int/test/signed_cmp_equal.c:72:test_cmp_equal_arith_property_x:PASS
@@ -17,8 +71,8 @@ OK
 Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"Arithmetic_Signed_Equal" end time: May 16 07:32 EDT
+"Arithmetic_Signed_Equal" end time: May 17 14:02 EDT
 "Arithmetic_Signed_Equal" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: May 16 07:32 EDT
+End testing: May 17 14:02 EDT

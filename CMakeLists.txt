@@ -14,5 +14,5 @@ add_subdirectory(external)
 add_subdirectory(test)
 
 
-#enable_testing()
+enable_testing()
 

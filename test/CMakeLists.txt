@@ -6,9 +6,8 @@ target_link_libraries(TestUnsignedEqual Unity)
 target_link_libraries(TestStdLib Unity)
 target_link_libraries(TestSignedEqual Unity)
 
-
-##add_test(Arithmetic_Unsigned_Equal TestUnsignedEqual)
-##add_test(Standard_Library_Tests	TestStdLib)
+add_test(Arithmetic_Unsigned_Equal TestUnsignedEqual)
+add_test(Standard_Library_Tests	TestStdLib)
 add_test(Arithmetic_Signed_Equal TestSignedEqual)
 
 
