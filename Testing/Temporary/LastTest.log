@@ -1,10 +1,10 @@
-Start testing: May 25 13:49 EDT
+Start testing: May 25 13:52 EDT
 ----------------------------------------------------------
 1/2 Testing: Arithmetic_Unsigned_Equal
 1/2 Test: Arithmetic_Unsigned_Equal
 Command: "/home/kali/cmp_int/test/TestUnsignedEqual"
 Directory: /home/kali/cmp_int/test
-"Arithmetic_Unsigned_Equal" start time: May 25 13:49 EDT
+"Arithmetic_Unsigned_Equal" start time: May 25 13:52 EDT
 Output:
 ----------------------------------------------------------
 /home/kali/cmp_int/test/unsigned_cmp_equal.c:260:test_cmp_equal_unsigned_b:PASS
@@ -15,10 +15,10 @@ Output:
 3 Tests 0 Failures 0 Ignored 
 OK
 <end of output>
-Test time =  92.67 sec
+Test time =  92.65 sec
 ----------------------------------------------------------
 Test Passed.
-"Arithmetic_Unsigned_Equal" end time: May 25 13:50 EDT
+"Arithmetic_Unsigned_Equal" end time: May 25 13:54 EDT
 "Arithmetic_Unsigned_Equal" time elapsed: 00:01:32
 ----------------------------------------------------------
 
@@ -26,7 +26,7 @@ Test Passed.
 2/2 Test: Standard_Library_Tests
 Command: "/home/kali/cmp_int/test/TestStdLib"
 Directory: /home/kali/cmp_int/test
-"Standard_Library_Tests" start time: May 25 13:50 EDT
+"Standard_Library_Tests" start time: May 25 13:54 EDT
 Output:
 ----------------------------------------------------------
 /home/kali/cmp_int/test/TestStdLib.c:242:std_lib_cmp_equal_test_01:PASS
@@ -50,8 +50,8 @@ OK
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"Standard_Library_Tests" end time: May 25 13:50 EDT
+"Standard_Library_Tests" end time: May 25 13:54 EDT
 "Standard_Library_Tests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: May 25 13:50 EDT
+End testing: May 25 13:54 EDT

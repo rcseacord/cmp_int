@@ -4,7 +4,7 @@ cmp_int_2 1 0.00689587
 Arithmetical 0 0
 Standard 0 0
 Arithmetical_Tests 30 0
-Standard_Library_Tests 33 0.000344201
+Standard_Library_Tests 34 0.000190691
 Arithmetic_Signed_Equal 13 0.00026424
-Arithmetic_Unsigned_Equal 10 9.26744
+Arithmetic_Unsigned_Equal 11 8.42252
 ---
