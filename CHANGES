@@ -1,0 +1,9 @@
+version 0.1 [November 9, 2021]
+  initial release
+
+version 0.2 [March 30, 2022]
+  added CMake build to support unit testing in Unity framework
+  
+version 0.3 [May 25th, 2022]
+  Implemented integer comparison tests from gcc libstdc++-v3
+  Added modular arithmetic unit tests for cmp_equal
