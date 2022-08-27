@@ -1,20 +1,19 @@
 \documentclass[11pt,letterpaper]{article}
-\usepackage{ncc_whitepaper}
+%\usepackage{ncc_whitepaper}
 \usepackage[english]{babel}
 \usepackage{blindtext}
 
-%%% XXX fill out the following blocks
+
 \newcommand{\papertitle}{Tool Release: Safe Integer Comparison in C}
 \newcommand{\paperabstract}{\blindtext}
 \newcommand{\docversion}{1.0}
 
-% The title page -- you can customize the title here if needed.
+
 \title{Tool Release: Safe Integer Comparison in C}
 \author{Anton Gerasimov\\
-Robert Seacord}
+Robert Seacord\\
+Aaron Ballman}
 
-
-%%% and you're done with the header.
 
 % \newcommand{\draft} % Comment this out when distributing
 \draftcheck
@@ -44,19 +43,12 @@ Robert Seacord}
 \section{Introduction}
 
 In this paper, we first discuss the challenges that arise from integer comparison in C (see
-\ref{sec:overview}) and then describe the tool that we are releasing (Section~\ref{sec:cimplementation}) as well as suggestions for use (Section~\ref{sec:suggestions}) and directions of future work (Section~\ref{sec:futurework}).
+\ref{sec:overview}) and then describe the tool that we are releasing (Section~\ref{sec:cimplementation}), and compare it with the C++ implementation (Section~\ref{sec:cppimplementation}). We also give suggestions for use (Section~\ref{sec:suggestions}) and directions of future work (Section~\ref{sec:futurework}).
 
 
 
 \section{Overview– Integer Security in C}
 \label{sec:overview}
-%%%It ain't easy.
-
-%%%This is an example of \texttt{thebibliography} environment using in 
-%%%bibliography management. Three items are cited: \textit{The \LaTeX\ Companion} 
-%%%book \cite{latexcompanion}, the Einstein journal paper \cite{einstein}, and 
-%%%the Donald Knuth's website \cite{knuthwebsite}. The \LaTeX\ related items are
-%%%\cite{latexcompanion,knuthwebsite}. 
 
 \subsection{Background }
 \Blindtext[2]
@@ -91,45 +83,30 @@ i.	Solutions in code
 1.	Type convert then compare
 ii.	Compiler flags and warnings
 
+\section{C++ Solution}
+\label{sec:cppimplementation}
 
-\section{C++ Solution }
 C++ Definition and features (discussion of OOP/template?)
 
 \blindtext
 \blindlist{itemize}
-\Blindtext[2]
-
-\section{Platform 1's Section}
-\label{sec:platform1}
-\Blindtext[4]
-
-\section{Platform 2's Sectin}
-\label{sec:platform2}
-\Blindtext[3]
+\Blindtext[5]
 
 
-\section{Conclusions}
-\blindtext
+\section{C Solution}
+\label{sec:cimplementation}
+a.	Our definition
+b.	Portable/no
+c.	What it prevents
+d.	Performance differences
 
-\subsection{Best-Practices for Awesomeness}
-\blindtext
+\section{Suggestions For Use}
+\label{sec:suggestions}
 
-\subsection{Alternatives to Greatness}
-\blindtext
-
-\subsection{The Road Ahead}
-\blindtext
+\section{Future Work}
+\label{sec:futurework}
 
 
-\bibliographystyle{alpha}
-\bibliography{mybib}
-
-%\section*{Appendices}
-%\nccappendix
-%\addtocontents{toc}{\protect\needspace{\baselineskip}}
-%\addappheadtotoc
-%\appendix
-%\input{appendices}
 
 \printindex
 \end{document}
