@@ -1,7 +1,35 @@
 \documentclass[11pt,letterpaper]{article}
 %\usepackage{ncc_whitepaper}
 \usepackage[english]{babel}
-\usepackage{blindtext}
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
 
 
 \newcommand{\papertitle}{Tool Release: Safe Integer Comparison in C}
@@ -32,7 +60,7 @@ Aaron Ballman}
 \makeatother
 \bgroup%
 %%%\addfontfeatures{BoldFeatures={Color=nccred}}
-\hypersetup{linkcolor=black}%
+\hypersetup%
 \tableofcontents
 \egroup%
 \thispagestyle{nccsection}
@@ -42,7 +70,7 @@ Aaron Ballman}
 
 \section{Introduction}
 
-In this paper, we first discuss the challenges that arise from integer comparison in C (see
+In this paper, we first discuss the challenges that arise from integer comparison in C (Section~
 \ref{sec:overview}) and then describe the tool that we are releasing (Section~\ref{sec:cimplementation}), and compare it with the C++ implementation (Section~\ref{sec:cppimplementation}). We also give suggestions for use (Section~\ref{sec:suggestions}) and directions of future work (Section~\ref{sec:futurework}).
 
 
@@ -51,33 +79,36 @@ In this paper, we first discuss the challenges that arise from integer compariso
 \label{sec:overview}
 
 \subsection{Background }
-\Blindtext[2]
 On the list of 2022 CWE top 25, Integer Overflow/Wraparound is in 13th place. The wraparound vulnerability arises when the modular arithmetic of unsigned integers is not accounted for in the program logic. This is only one specific instance of an integer vulnerability, and nonetheless arrives at 13th place on a  general list that includes higher level languages, where this error generally cannot occur. Others in this category include conversion and truncation issues, as well as incorrect handling of numerical logic. 
 
 Type conversion errors can be of two types, explicit and implicit. The former occurs when the developer makes a type cast which can lead to data loss, when for example a cast from a larger width to a smaller width unsigned number. Implicit conversion occurs by the compiler without direction from the developer, and is prompted by an operation that implicitly forces a conversion of a variable type that the developer had no intention of effecting. It is true that this conversion follows a defined integer conversion rank, but the impact is unpredictable. There may be no issue, for example when a promotion occurs to a higher precision type with , or there may be data loss arising from a demotion. Our current purpose, however, is to discuss the scenario of implicit type conversion occurring because of comparison operations.
 
 
 \subsection{Concrete examples of sneaky problems}
-\Blindtext[3]
-Any type of comparison (==,=!,<=,<,>=,>) can provoke an implicit type conversion when the operands are of different types. This can occur in a number of ways. We begin with the below simple example:
+Any type of comparison (==,=!,\textless=,\textless,\textgreater=,\textgreater) can provoke an implicit type conversion when the operands are of different types. This can occur in a number of ways. We begin with the below simple example:
 
+\begin{lstlisting}[style=CStyle]
 signed int x=-1;
 unsigned int y=1;
 printf(“beware the output of x<y is actually %d\n”,x<y);
+\end{lstlisting}
+
 
 Here, there is an implicit conversion of x from signed to unsigned, and hence the -1 is then “wrapped around” to UINT_MAX-1. 
 
 We consider now the following:
 
+\begin{lstlisting}[style=CStyle]
 short x=1;
 short y=2;
 if(x-sizeof(y)>1){
-  		printf("this was not expected to be verified");}	
+  		printf("this was not expected to be verified");}
+\end{lstlisting}
 
-In this example, several things occur at once. First, both x and y will be promoted to a signed int because an arithmetic operation is performed upon them. Next, x will be converted to unsigned int implicitly because of the subtraction of sizeof(y), but the latter is equal to 2, with the unsigned result therefore corresponding to UINT_MAX-1, which nicely satisfies the condition even though the developer might have expected 1-2>1 and therefore false.
+In this example, several things occur at once. First, both x and y will be promoted to a signed int because an arithmetic operation is performed upon them. Next, x will be converted to unsigned int implicitly because of the subtraction of sizeof(y), but the latter is equal to 2, with the unsigned result therefore corresponding to UINT\_MAX-1, which nicely satisfies the condition even though the developer might have expected 1-2>1 and therefore false.
 
 \subsection{Existing palliative measures}
-\Blindtext[4]
+
 
 i.	Solutions in code
 1.	Type convert then compare
@@ -90,8 +121,6 @@ C++ Definition and features (discussion of OOP/template?)
 
 \blindtext
 \blindlist{itemize}
-\Blindtext[5]
-
 
 \section{C Solution}
 \label{sec:cimplementation}
