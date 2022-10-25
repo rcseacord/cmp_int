@@ -70,42 +70,87 @@ Aaron Ballman}
 
 \section{Introduction}
 
-In this paper, we first discuss the challenges that arise from integer comparison in C (Section~
-\ref{sec:overview}) and then describe the tool that we are releasing (Section~\ref{sec:cimplementation}), and compare it with the C++ implementation (Section~\ref{sec:cppimplementation}). We also give suggestions for use (Section~\ref{sec:suggestions}) and directions of future work (Section~\ref{sec:futurework}).
-
-
+In this paper, we discuss the challenges that arise from integer comparison in C (Section~
+\ref{sec:overview}) and describe the library that we are releasing (Section~\ref{sec:cimplementation}), and compare it with the C++ implementation (Section~\ref{sec:cppimplementation}). 
+We also give suggestions for use (Section~\ref{sec:suggestions}) and directions of future work (Section~\ref{sec:futurework}).
 
 \section{Overview– Integer Security in C}
 \label{sec:overview}
 
 \subsection{Background }
-On the list of 2022 CWE top 25, Integer Overflow/Wraparound is in 13th place. The wraparound vulnerability arises when the modular arithmetic of unsigned integers is not accounted for in the program logic. This is only one specific instance of an integer vulnerability, and nonetheless arrives at 13th place on a  general list that includes higher level languages, where this error generally cannot occur. Others in this category include conversion and truncation issues, as well as incorrect handling of numerical logic. 
 
-Type conversion errors can be of two types, explicit and implicit. The former occurs when the developer makes a type cast which can lead to data loss, when for example a cast from a larger width to a smaller width unsigned number. Implicit conversion occurs by the compiler without direction from the developer, and is prompted by an operation that implicitly forces a conversion of a variable type that the developer had no intention of effecting. It is true that this conversion follows a defined integer conversion rank, but the impact is unpredictable. There may be no issue, for example when a promotion occurs to a higher precision type with , or there may be data loss arising from a demotion. Our current purpose, however, is to discuss the scenario of implicit type conversion occurring because of comparison operations.
+Signed / unsigned comparison is a major source of defects and software vulnerabilities in C and C++ programming [Seacord 2005, Stroustrup 2019].
 
+@book{10.5555/2530475,
+author = {Seacord, Robert C.},
+title = {Secure Coding in C and C++},
+year = {2013},
+isbn = {0321822137},
+publisher = {Addison-Wesley Professional},
+edition = {2nd},
+}
 
-\subsection{Concrete examples of sneaky problems}
-Any type of comparison (==,=!,\textless=,\textless,\textgreater=,\textgreater) can provoke an implicit type conversion when the operands are of different types. This can occur in a number of ways. We begin with the below simple example:
+Bjarne Stroustrup.  "Don’t add to the signed/unsigned mess". 2019-02-14 https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1491r0.pdf
+
+For example, the following expression:
+
+\begin{lstlisting}[style=CStyle]
+ -1 > 0u 
+\end{lstlisting}
+
+evaluates to \texttt{true} which can be surprising to inexperienced programmers.
+This particular comparison is between two integer literals, so the first step in this process is determining the type of these literals.
+Even this process is complicated as the type depends on the implementation-defined ranges of integer types, the values, and any suffixes used by the integer literal.
+The left-hand side of this comparison has the value \texttt{-1}.
+This is actually the integer literal one preceeded by the unary negation operator.
+The integer literal 1 in this example has the type \texttt{int}.
+The right-hand side of this expression consists solely of the integer literal \texttt{0u}.
+The \texttt{u} in this example is an integer literal suffix meaning unsigned.
+The integer literal \texttt{0u}  has the type \texttt{unsigned int}.
+Before the comparison can be evaluated expression, C must balance the two operands to a common type.
+The process for doing so is called the \emph{usual arithmetic conversions}.
+To determine the common type, each type is assigned a conversion rank according to the \emph{integer conversion rank} rules.
+The rank of any unsigned integer type is equal to the rank of the corresponding signed integer type.
+If the operand that has unsigned integer type has rank \texttt{>=} the rank of the operand with signed integer type, the operand with signed integer type is converted to the type of the operand with unsigned integer type.
+In this particular example, this means that \texttt{-1} is converted to the type \texttt{unsigned int}, and the comparison is performed between two integer values of this type.
+Because unsigned types cannot represent negative values, when \texttt{-1} is converted to \texttt{unsigned int} the bit pattern represents the value \texttt{UINT_MAX} (the maximum value that can be represented as \texttt{unsigned int}.
+At this point, it should be clear why \texttt{-1 > 0u} evaluates to \texttt{true}, as \texttt{UINT_MAX} is greater than zero.
+
+The general \emph{integer conversion rank} rules and \emph{usual arithmetic conversions} are more complicated of course.
+This example does not even involve \emph{integer promotions}, which are only applied to an object or expression with an integer type whose integer conversion rank is less than or equal to the rank of \texttt{int} and \texttt{unsigned int}.  
+
+Any comparison operator (==,=!,\textless=,\textless,\textgreater=,\textgreater) can provoke an implicit type conversion when the operands are of different types. 
+This can occur in a number of ways. 
+The following example is similiar to the previous one, but uses objects with defined, but different integer types:
 
 \begin{lstlisting}[style=CStyle]
 signed int x=-1;
 unsigned int y=1;
-printf(“beware the output of x<y is actually %d\n”,x<y);
+printf(“beware the output of x < y is actually %d\n”, x < y);
 \end{lstlisting}
 
-
-Here, there is an implicit conversion of x from signed to unsigned, and hence the -1 is then “wrapped around” to UINT_MAX-1. 
+Again, the rvalue on the left-hand side of the comparison operator is converted from signed int to unsigned int as a result of the usual arithmetic conversion.
+The result is that the expression \texttt{x < y} evaluates to false.
 
 We consider now the following:
 
 \begin{lstlisting}[style=CStyle]
 short x=1;
 short y=2;
-if(x-sizeof(y)>1){
-  		printf("this was not expected to be verified");}
+if (x - sizeof(y) > 1) {
+  printf("this was not expected to be verified");
+}
 \end{lstlisting}
 
-In this example, several things occur at once. First, both x and y will be promoted to a signed int because an arithmetic operation is performed upon them. Next, x will be converted to unsigned int implicitly because of the subtraction of sizeof(y), but the latter is equal to 2, with the unsigned result therefore corresponding to UINT\_MAX-1, which nicely satisfies the condition even though the developer might have expected 1-2>1 and therefore false.
+In this example, both \texttt{x} and \texttt{y} are promoted to \texttt{signed int} when they are used as an rvalue in an expression.
+The result of the expression \texttt{sizeof(y)} is the unsigned integer type \texttt{size_t}.
+This is an implementation-defined type that is guaranteed to be of sufficient precision to represent the size of an object.
+This is typically \texttt{unsigned int} for a 32-bit address space, and \texttt{unsigned long long} for a 64-bit address space.
+To perform the subtraction operation, the value of {x} is converted to the same type as unsigned integer type \texttt{size_t}.
+
+This is a really weird example. I think this does exactly what you would expect, but the question is why would you do this?
+
+Next, x will be converted to unsigned int implicitly because of the subtraction of , but the latter is equal to 2, with the unsigned result therefore corresponding to UINT\_MAX-1, which nicely satisfies the condition even though the developer might have expected 1-2>1 and therefore false.
 
 \subsection{Existing palliative measures}
 
