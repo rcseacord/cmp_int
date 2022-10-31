@@ -113,8 +113,8 @@ To determine the common type, each type is assigned a conversion rank according 
 The rank of any unsigned integer type is equal to the rank of the corresponding signed integer type.
 If the operand that has unsigned integer type has rank \texttt{>=} the rank of the operand with signed integer type, the operand with signed integer type is converted to the type of the operand with unsigned integer type.
 In this particular example, this means that \texttt{-1} is converted to the type \texttt{unsigned int}, and the comparison is performed between two integer values of this type.
-Because unsigned types cannot represent negative values, when \texttt{-1} is converted to \texttt{unsigned int} the bit pattern represents the value \texttt{UINT_MAX} (the maximum value that can be represented as \texttt{unsigned int}.
-At this point, it should be clear why \texttt{-1 > 0u} evaluates to \texttt{true}, as \texttt{UINT_MAX} is greater than zero.
+Because unsigned types cannot represent negative values, when \texttt{-1} is converted to \texttt{unsigned int} the bit pattern represents the value \texttt {UINT\_MAX} the maximum value that can be represented as \texttt{unsigned int}.
+At this point, it should be clear why \texttt{-1 > 0u} evaluates to \texttt{true}, as \texttt {UINT\_MAX} is greater than zero.
 
 The general \emph{integer conversion rank} rules and \emph{usual arithmetic conversions} are more complicated of course.
 This example does not even involve \emph{integer promotions}, which are only applied to an object or expression with an integer type whose integer conversion rank is less than or equal to the rank of \texttt{int} and \texttt{unsigned int}.  
@@ -135,29 +135,27 @@ The result is that the expression \texttt{x < y} evaluates to false.
 We consider now the following:
 
 \begin{lstlisting}[style=CStyle]
-short x=1;
-short y=2;
-if (x - sizeof(y) > 1) {
-  printf("this was not expected to be verified");
-}
+signed char user_input_len;
+char user_input_buffer[]="msg";
+user_input_len=get_unvalidated_user_input(...);
+
+if(user_input_len==sizeof(user_input_buffer)){
+	printf("continue unintended program execution");
+	}	
+ 	
 \end{lstlisting}
 
-In this example, both \texttt{x} and \texttt{y} are promoted to \texttt{signed int} when they are used as an rvalue in an expression.
-The result of the expression \texttt{sizeof(y)} is the unsigned integer type \texttt{size_t}.
-This is an implementation-defined type that is guaranteed to be of sufficient precision to represent the size of an object.
-This is typically \texttt{unsigned int} for a 32-bit address space, and \texttt{unsigned long long} for a 64-bit address space.
-To perform the subtraction operation, the value of {x} is converted to the same type as unsigned integer type \texttt{size_t}.
+In this example,  \texttt{user\_input\_len} is promoted to \texttt{unsigned int} as explained above. However, if we now suppose that the user has populated \texttt{user\_input\_len} as -252, then the equality check in the if statement will in fact be verified, and thus this validation check has been bypassed because of the unintended behavior of the implicit type conversion. 
 
-This is a really weird example. I think this does exactly what you would expect, but the question is why would you do this?
-
-Next, x will be converted to unsigned int implicitly because of the subtraction of , but the latter is equal to 2, with the unsigned result therefore corresponding to UINT\_MAX-1, which nicely satisfies the condition even though the developer might have expected 1-2>1 and therefore false.
 
 \subsection{Existing palliative measures}
 
 
-i.	Solutions in code
-1.	Type convert then compare
-ii.	Compiler flags and warnings
+\subsubsection{Solutions in code}
+\subsubsection{Type convert then compare}
+\subsubsection{Compiler flags and warnings
+
+
 
 \section{C++ Solution}
 \label{sec:cppimplementation}
