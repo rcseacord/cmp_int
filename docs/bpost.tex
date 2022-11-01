@@ -150,10 +150,32 @@ In this example,  \texttt{user\_input\_len} is promoted to \texttt{unsigned int}
 
 \subsection{Existing palliative measures}
 
+\subsubsection{Compiler flags and warnings}
+The most immediate way to address implicit conversions arising because of comparison is to use compiler flags. In GCC, the relevant flags are -Wsign-compare, which checks for comparisons between signed and unsigned types, as well as -Wsign-conversion, which warns that an implicit conversion may have changed the sign of a conversion. Both of these checks are included in the -Wextra flag.
+
+(https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
+
+In Clang, the main flag is -Wsign-conversion, which also controls the more granular
+
+-Wimplicit-int-conversion, -Wint-conversion, and -Wsign-conversion.
+
+(https://clang.llvm.org/docs/DiagnosticsReference.html#wimplicit-int-conversion)
+
+In MSVC, like with GCC and Clang, the default setting does not warn about implicit conversions. There is however the C4018 level 3 compiler warning , which notifies the developer that an operator had forced an implicit conversion from signed to unsigned, with the same trigger for level 4 warning C4388. Likewise, level 4 warning C4389 notifies that an "==" or "!=" operation involved signed and unsigned variables. However, these warnings must be used with care as it has been detected that error C4018 is not triggered when the operands are of different size, and Microsoft has closed the ticket without resolving the issue, as it was deemed of insufficient importance. 
+
+(https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-3-c4018?view=msvc-170
+
+https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/c4388?view=msvc-170
+
+https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-4-c4389?view=msvc-170
+
+https://developercommunity.visualstudio.com/t/warning-c4018-does-not-work-when-the-sizes-of-type/335285)
+
+
 
 \subsubsection{Solutions in code}
-\subsubsection{Type convert then compare}
-\subsubsection{Compiler flags and warnings
+ 1)Type convert then compare
+
 
 
 
