@@ -151,7 +151,7 @@ In this example,  \texttt{user\_input\_len} is promoted to \texttt{unsigned int}
 \subsection{Existing palliative measures}
 
 \subsubsection{Compiler flags and warnings}
-The most immediate way to address implicit conversions arising because of comparison is to use compiler flags. In GCC, the relevant flags are -Wsign-compare, which checks for comparisons between signed and unsigned types, as well as -Wsign-conversion, which warns that an implicit conversion may have changed the sign of a conversion. Both of these checks are included in the -Wextra flag.
+The most immediate way to address implicit conversions arising because of comparison is to use compiler flags. In GCC, the relevant flags are -Wsign-compare, which checks for comparisons between signed and unsigned types, as well as -Wsign-conversion, which warns that an implicit conversion may have changed the sign of a conversion. Both of these checks are included in the -Wextra flag. Given the inclination of developers to ignore warnings, more recent versions of GCC allow the -Werror=specific-warning flag to replace an error with a warning.
 
 (https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
 
@@ -171,10 +171,21 @@ https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-
 
 https://developercommunity.visualstudio.com/t/warning-c4018-does-not-work-when-the-sizes-of-type/335285)
 
-
-
 \subsubsection{Solutions in code}
- 1)Type convert then compare
+C does not have the \texttt{explicit} keyword in C++ that bans implicit conversions. There are not many options to prevent this problem in code. The first would be to type cast within the comparison. This far from elegant option does indeed have the merit in  forcing the developer to ask themselves what is the type of the variables inside the comparison. However, this only shifts the problem, as then it creates a risk of an error relating to type casting. Furthermore, this would be a somewhat unnatural demand to place upon developers in isolation. 
+
+The more natural option is to use specific industry standards like Cert C or MISRA.  
+
+The Motor Industry Software Reliability Association (MISRA) has developed a set of guidelines for C development in embedded and safety critical applications called MISRA C. These guidelines include an "Essential Type Model", which MISRA defines in the following 
+way:
+
+
+
+
+
+
+
+ 
 
 
 
@@ -182,7 +193,15 @@ https://developercommunity.visualstudio.com/t/warning-c4018-does-not-work-when-t
 \section{C++ Solution}
 \label{sec:cppimplementation}
 
-C++ Definition and features (discussion of OOP/template?)
+The C++20 standard has implemented safe integer comparison functions in the Utilities library.
+
+(https://en.cppreference.com/w/cpp/utility/intcmp)
+
+
+
+(https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0586r2.html)
+
+
 
 \blindtext
 \blindlist{itemize}
