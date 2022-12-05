@@ -147,7 +147,6 @@ if(user_input_len==sizeof(user_input_buffer)){
 
 In this example,  \texttt{user\_input\_len} is promoted to \texttt{unsigned int} as explained above. However, if we now suppose that the user has populated \texttt{user\_input\_len} as -252, then the equality check in the if statement will in fact be verified, and thus this validation check has been bypassed because of the unintended behavior of the implicit type conversion. 
 
-
 \subsection{Existing palliative measures}
 
 \subsubsection{Compiler flags and warnings}
@@ -176,19 +175,25 @@ C does not have the \texttt{explicit} keyword in C++ that bans implicit conversi
 
 The more natural option is to use specific industry standards like Cert C or MISRA.  
 
-The Motor Industry Software Reliability Association (MISRA) has developed a set of guidelines for C development in embedded and safety critical applications called MISRA C. These guidelines include an "Essential Type Model", which MISRA defines in the following 
-way:
+The Motor Industry Software Reliability Association (MISRA) has developed a set of guidelines for C development in embedded and safety critical applications called MISRA C. These guidelines include an "Essential Type Model", which MISRA describes in the following way:
 
+"The essential type of an object or expression is defined by its essential type category and size. The essential type category of an expression reflects its underlying behavior and may be:
 
+Essentially Boolean;
+Essentially character;
+Essentially enum;
+Essentially signed;
+Essentially unsigned;
+Essentially floating;"
 
+With this model, of interest to the present discussion are the following two rules:
 
+Rule 10.1: "Operands shall not be of an inappropriate essential type"
+Rule 10.4: "Both operands of an operator in which the usual arithmetic conversions are performed"
 
+It is not the objective of this article to discuss MISRA at length, but with regards to safe comparison the following observations can be made. For the most part implicit conversions arise as a consequence of operators being of different signedness, so the above restriction goes a long way in making integer comparison safer. 
 
-
- 
-
-
-
+However, MISRA rules are not applied in isolation. There is a large number of restrictions on how the language can be used, and compliance requires a high level of commitment. Although there is no formal MISRA certification, adherence to the rules would require adoption from the outset of the project, and requires appropriately skilled staff, necessary operational procedures, and extensive documentation. For these reasons MISRA compliance typically makes sense in safety critical applications, for which it was designed. 
 
 \section{C++ Solution}
 \label{sec:cppimplementation}
@@ -197,29 +202,37 @@ The C++20 standard has implemented safe integer comparison functions in the Util
 
 (https://en.cppreference.com/w/cpp/utility/intcmp)
 
-
-
 (https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0586r2.html)
 
+In the GNU C++ Standard Library, the utility functions are in the "Utility" Header, and in turn relies heavily on the make_unsigned function. The latter is defined in the "Typetraits", and is defined through a metaprogramming template. 
 
+The implemented solution in the standard libraries involves metaprogramming, which is not possible in C. Metaprogramming is not suitable for kernel/driver, embedded, and safety-critical applications, which impose far more rigid constraints on the employed programming language.   
 
 \blindtext
 \blindlist{itemize}
 
 \section{C Solution}
 \label{sec:cimplementation}
-a.	Our definition
-b.	Portable/no
-c.	What it prevents
-d.	Performance differences
+\subsection{Our definition}
+The authors have provided a C definition of integer comparison functions, similar to the definitions of the C++ Standard, but in line with safe C coding standards. The objective is to provide developers with specific utility functions to prevent integer comparison vulnerabilities, without having to enforce wider and more cumbersome standards. 
+
+Unlike the builtin C comparison operators, negative signed integers always compare "less than" (and "not equal to") unsigned integers: the comparison is safe against lossy integer conversion.
+
+It is a compile-time error if either the left hand side or right hand side is not a signed or unsigned integer type (including standard integer type and extended integer type). It is also a compile-time error if the either left hand side or right hand side is the char and bool type. While technically integer types, the char type should only be used to represent character values where the signedness is unimportant and the 'bool' type is always unsigned.
+
+\subsection{Portable/no}
+The header provides 2 types of functions, portable and not. 
+
+The CMP_INT_WANT_PORTABLE macro is defined to 1 for the most portable implementation of these facilities. This macro will disable the use of GNU statement expressions and other extensions that protect against unintended duplicate side effects during macro expansion. For this reason, the macro defaults to requesting the nonportable interfaces that are more hygenic.
+
+These interfaces require compiling with support for C11 functionality, even when requesting maximal portability.
+
+\subsection{Performance differences}
 
 \section{Suggestions For Use}
 \label{sec:suggestions}
 
 \section{Future Work}
 \label{sec:futurework}
-
-
-
 \printindex
 \end{document}
