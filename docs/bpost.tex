@@ -30,6 +30,26 @@
     language=C
 }
 
+\lstdefinestyle{CppStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C++
+}
+
 
 
 \newcommand{\papertitle}{Tool Release: Safe Integer Comparison in C}
@@ -204,9 +224,9 @@ The C++20 standard has implemented safe integer comparison functions in the Util
 
 (https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0586r2.html)
 
-In the GNU C++ Standard Library, the utility functions are in the "Utility" Header, and in turn relies heavily on the make_unsigned function. The latter is defined in the "Typetraits", and is defined through a metaprogramming template. 
+In the GNU C++ Standard Library, the utility functions are in the "Utility" Header, and in turn relies heavily on the make\_unsigned function. The latter is defined in the "Typetraits", and makes use of metaprogramming templates. 
 
-The implemented solution in the standard libraries involves metaprogramming, which is not possible in C. Metaprogramming is not suitable for kernel/driver, embedded, and safety-critical applications, which impose far more rigid constraints on the employed programming language.   
+Template metaprogramming is not a feature of the C language. Furthermore, metaprogramming is not suitable for kernel/driver, embedded, and safety-critical applications, which favor the imposition of rigid constraints on development practices. In these programming contexts, less is more, as increased functionality presents a security and safety risk. 
 
 \blindtext
 \blindlist{itemize}
@@ -214,16 +234,75 @@ The implemented solution in the standard libraries involves metaprogramming, whi
 \section{C Solution}
 \label{sec:cimplementation}
 \subsection{Our definition}
-The authors have provided a C definition of integer comparison functions, similar to the definitions of the C++ Standard, but in line with safe C coding standards. The objective is to provide developers with specific utility functions to prevent integer comparison vulnerabilities, without having to enforce wider and more cumbersome standards. 
+It was the objective of the authors to provide developers with specific utility functions to prevent integer comparison vulnerabilities, without having to enforce wider and more cumbersome standards. 
 
-Unlike the builtin C comparison operators, negative signed integers always compare "less than" (and "not equal to") unsigned integers: the comparison is safe against lossy integer conversion.
+We have provided a C definition of integer comparison functions, employing the same arithmetic logic as the definitions of the C++ Standard, but using builtins from the C11 standard. Specifically, the definitions heavily rely on the \_generic selection newly introduced in C11, which selects an expression at compile time based on the type of the argument. This keyword provides a capability similar to type overloading in C++, and therefore allows a natural transposition of the utility functions.
 
-It is a compile-time error if either the left hand side or right hand side is not a signed or unsigned integer type (including standard integer type and extended integer type). It is also a compile-time error if the either left hand side or right hand side is the char and bool type. While technically integer types, the char type should only be used to represent character values where the signedness is unimportant and the 'bool' type is always unsigned.
+To take cmp\_less as an example, the GCC implementation of the C++ standard library defines: 
+
+\begin{lstlisting}[style=CppStyle]
+  template<typename _Tp, typename _Up>
+    constexpr bool
+    cmp_less(_Tp __t, _Up __u) noexcept
+    {
+      static_assert(__is_standard_integer<_Tp>::value);
+      static_assert(__is_standard_integer<_Up>::value);
+
+      if constexpr (is_signed_v<_Tp> == is_signed_v<_Up>)
+	return __t < __u;
+      else if constexpr (is_signed_v<_Tp>)
+	return __t < 0 || make_unsigned_t<_Tp>(__t) < __u;
+      else
+	return __u >= 0 && __t < make_unsigned_t<_Up>(__u);
+    }
+\end{lstlisting}
+
+Which in our C implementation (the non-portable definition) becomes: 
+
+\begin{lstlisting}[style=CStyle]
+#define cmp_less(lhs, rhs)                                                     
+  ({                                                                           
+    __typeof__(lhs) lhs_val = lhs;                                             
+    __typeof__(rhs) rhs_val = rhs;                                             
+    check(lhs_val, "lhs");                                                     
+    check(rhs_val, "rhs");                                                     
+    int res = 0;                                                               
+    if (is_signed(lhs_val) == is_signed(rhs_val))                              
+      res = (lhs_val) < (rhs_val);                                             
+    else if (is_signed(lhs_val))                                               
+      res = (lhs_val) < 0 ? 1 : make_unsigned(lhs_val) < (rhs_val);            
+    else                                                                       
+      res = (rhs_val) < 0 ? 0 : (lhs_val) < make_unsigned(rhs_val);            
+    res;                                                                       
+  })
+\end{lstlisting}
+
+With the make\_unsigned operator is defined as:
+
+\begin{lstlisting}[style=CStyle]
+#define make_unsigned(x) (_Generic((x), 
+                         default: make_unsigned_fixed_width(x), 
+                         signed char: ((unsigned char)x), 
+                         signed short: ((unsigned short)x), 
+                         signed int: ((unsigned int)x), 
+                         signed long: ((unsigned long)x), 
+                         signed long long: (unsigned long long)x))
+                                          
+#define make_unsigned_fixed_width(x) (_Generic((x), 
+                         default: (x), 
+                         int8_t: ((uint8_t)x), 
+                         int16_t: ((uint16_t)x), 
+                         int32_t: ((uint32_t)x), 
+                         int64_t: ((uint64_t)x)))
+\end{lstlisting}
+
+
+Unlike the builtin C comparison operators, negative signed integers always compare "less than" (and "not equal to") unsigned integers: the comparison is safe against lossy integer conversion. It is a compile-time error if either the left hand side or right hand side is not a signed or unsigned integer type (including standard integer type and extended integer type). It is also a compile-time error if the either left hand side or right hand side is the char and bool type. While technically integer types, the char type should only be used to represent character values where the signedness is unimportant and the 'bool' type is always unsigned.
 
 \subsection{Portable/no}
 The header provides 2 types of functions, portable and not. 
 
-The CMP_INT_WANT_PORTABLE macro is defined to 1 for the most portable implementation of these facilities. This macro will disable the use of GNU statement expressions and other extensions that protect against unintended duplicate side effects during macro expansion. For this reason, the macro defaults to requesting the nonportable interfaces that are more hygenic.
+The CMP\_INT\_WANT\_PORTABLE macro is defined to 1 for the most portable implementation of these facilities. This macro will disable the use of GNU statement expressions and other extensions that protect against unintended duplicate side effects during macro expansion. For this reason, the macro defaults to requesting the nonportable interfaces that are more hygenic.
 
 These interfaces require compiling with support for C11 functionality, even when requesting maximal portability.
 
@@ -231,6 +310,58 @@ These interfaces require compiling with support for C11 functionality, even when
 
 \section{Suggestions For Use}
 \label{sec:suggestions}
+
+In the below section, we have a simple program that returns an incorrect comparison within an if statement. As discussed earlier in this article, we have a comparison between an unsigned and unsigned integer which yields an unexpected verification. 
+
+\begin{lstlisting}[style=CStyle]
+int main(void)
+{
+       unsigned int len=1;
+
+        if (len<-1){
+        printf("1 is less than -1, congratulations\n");
+        }
+
+        return 0;
+        
+}
+\end{lstlisting}
+
+
+In the below, we replace the comparison with the cmp\_less function, which remediates the problem and returns the expected result. 
+
+\begin{lstlisting}[style=CStyle]
+int main(void)
+{
+        unsigned int len=1;
+
+        if (cmp_less(len,-1)){
+        printf("this should not print anything\n");
+        }
+
+        if (cmp_greater(len,-1)){
+        printf("this is the correct answer\n");
+        }
+
+        if (cmp_equal(len,-1)){
+        printf("this should not print anything\n");
+        }
+
+        return 0;
+
+}
+\end{lstlisting}
+
+
+
+To take a more involved real world example, we take the UnixODBC driver vulnerability 
+
+https://nvd.nist.gov/vuln/detail/CVE-2011-1145
+
+
+
+
+
 
 \section{Future Work}
 \label{sec:futurework}
